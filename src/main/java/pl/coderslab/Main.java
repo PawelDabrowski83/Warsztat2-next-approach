@@ -6,6 +6,7 @@ import pl.coderslab.solution.Solution;
 import pl.coderslab.solution.SolutionDao;
 import pl.coderslab.userGroup.UserGroup;
 import pl.coderslab.userGroup.UserGroupDao;
+import pl.coderslab.users.UserManagement;
 import pl.coderslab.users.User;
 import pl.coderslab.users.UserDao;
 
@@ -21,7 +22,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        testSolutions();
+        UserManagement.manage();
 
 
     }
@@ -103,6 +104,8 @@ public class Main {
         Solution[] solutions = solutionDao.findAll();
         solutions = solutionDao.findAllByUserId(1);
         solutions = solutionDao.findAllByExerciseId(0);
+        UserDao userDao = new UserDao();
+        User[] users = userDao.findAllUserByUserGroupId(2);
         System.out.println(solutions);
     }
 

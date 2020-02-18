@@ -114,7 +114,7 @@ public class UserDao {
         return user;
     }
 
-    private User[] findAllUserByUserGroupId(int userGroupId) {
+    public User[] findAllUserByUserGroupId(int userGroupId) {
         try (Connection connection = DbUtil.getConnection()) {
             User[] users = new User[0];
             PreparedStatement statement = connection.prepareStatement(FIND_ALL_USERS_BY_USERGROUPID);
