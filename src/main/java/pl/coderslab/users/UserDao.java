@@ -35,9 +35,13 @@ public class UserDao {
                 user.setId(resultSet.getInt(1));
             }
             return user;
+        } catch (SQLIntegrityConstraintViolationException e) {
+            e.printStackTrace();
+            System.out.println("Zduplikowane wartości unikalne");
+            return new User();
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new User();
         }
     }
 
