@@ -1,9 +1,16 @@
 package pl.coderslab;
 
+import pl.coderslab.exercise.Exercise;
+import pl.coderslab.exercise.ExerciseDao;
+import pl.coderslab.solution.Solution;
+import pl.coderslab.solution.SolutionDao;
+import pl.coderslab.userGroup.UserGroup;
+import pl.coderslab.userGroup.UserGroupDao;
 import pl.coderslab.users.User;
 import pl.coderslab.users.UserDao;
 
-import java.sql.SQLOutput;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
 
@@ -14,6 +21,17 @@ public class Main {
 
     public static void main(String[] args) {
 
+        testSolutions();
+
+
+    }
+
+    private static User safeReadUser (Optional<User> optionalUser)
+    {
+        return optionalUser.orElseGet(User::new);
+    }
+
+    private static void testUsers() {
         User user = new User();
         user.setName("Robert");
         user.setEmail("test." + RANDOM.nextInt(LIMITER) + "@wp.pl");
@@ -36,7 +54,80 @@ public class Main {
 
     }
 
-    private static User safeReadUser (Optional<User> optionalUser) {
-        return optionalUser.orElseGet(User::new);
+    private static void testUserGroups() {
+        UserGroupDao userGroupDao = new UserGroupDao();
+        UserGroup userGroup = new UserGroup("Testowa" + RANDOM.nextInt(LIMITER));
+        userGroupDao.create(userGroup);
+
+        int testUserGroupId = 0;
+        Optional<UserGroup> userGroupOptional = Optional.ofNullable(userGroupDao.read(testUserGroupId));
+        userGroup = userGroupOptional.orElseGet(UserGroup::new);
+//        userGroup = userGroupDao.read(testUserGroupId);
+        System.out.println(userGroup.getName());
+        userGroup.setName("Zmiana");
+        userGroupDao.update(userGroup);
+//        userGroupDao.delete(testUserGroupId);
+        UserGroup[] userGroups = userGroupDao.findAll();
+        System.out.println("Lista" + Arrays.toString(userGroups));
     }
+
+    public static void testExercises() {
+        ExerciseDao exerciseDao = new ExerciseDao();
+        Exercise exercise = new Exercise("Title " + RANDOM.nextInt(LIMITER), "Description " + RANDOM.nextInt(LIMITER));
+        exerciseDao.create(exercise);
+
+        int testExerciseId = 0;
+        Optional<Exercise> optionalExercise = Optional.ofNullable(exerciseDao.read(testExerciseId));
+        exercise = optionalExercise.orElseGet(Exercise::new);
+
+        System.out.println("GET tytuł: " + exercise.getTitle());
+
+        Exercise[] exercises = exerciseDao.findAll();
+        exercise = exercises[0];
+
+        exercise.setDescription("Poprawiony opis");
+        exerciseDao.update(exercise);
+
+        optionalExercise = Optional.ofNullable(exerciseDao.read(exercise.getId()));
+        exercise = optionalExercise.orElseGet(Exercise::new);
+
+        System.out.println("Po aktualizacji: " + exercise.getDescription());
+
+//        exerciseDao.delete(exercise.getId());
+    }
+
+    public static void testSolutions() {
+        SolutionDao solutionDao = new SolutionDao();
+        Solution solution = testSolutionRead(solutionDao);
+        testSolutionUpdate(solutionDao, solution);
+        Solution[] solutions = solutionDao.findAll();
+        solutions = solutionDao.findAllByUserId(1);
+        solutions = solutionDao.findAllByExerciseId(0);
+        System.out.println(solutions);
+    }
+
+    public static void testSolutionCreate(SolutionDao solutionDao) {
+
+        Solution solution = new Solution(LocalDateTime.now(), LocalDateTime.now(), "Opis " + RANDOM.nextInt(LIMITER), 4, 1);
+        solutionDao.create(solution);
+
+    }
+
+    public static Solution testSolutionRead(SolutionDao solutionDao) {
+
+        int solutionId = 6;
+        Optional<Solution> optionalSolution = Optional.ofNullable(solutionDao.read(solutionId));
+        Solution solution = optionalSolution.orElseGet(Solution::new);
+
+        System.out.println("Description+++ solution: " + solution.getCreated());
+        return solution;
+    }
+
+    public static void testSolutionUpdate(SolutionDao solutionDao, Solution solution) {
+        solution.setDescription("Nowy opis " + RANDOM.nextInt(LIMITER));
+        solution.setUpdated(LocalDateTime.now());
+        solution.getCreated();
+        solutionDao.update(solution);
+    }
+
 }

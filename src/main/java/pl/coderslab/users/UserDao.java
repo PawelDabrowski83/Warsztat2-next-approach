@@ -17,6 +17,8 @@ public class UserDao {
             "DELETE FROM users WHERE id = ?";
     private static final String FIND_ALL_USERS_QUERY =
             "SELECT * FROM users";
+    private static final String FIND_ALL_USERS_BY_USERGROUPID =
+            "SELECT * FROM users WHERE usergroup_id = ?";
 
 
 
@@ -95,17 +97,40 @@ public class UserDao {
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_USERS_QUERY);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setName(resultSet.getString("name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                users = addToArray(user, users);
+                users = addToArray(getUserFromResultSet(resultSet), users);
             }
             return users;
         } catch (SQLException e) {
             e.printStackTrace(); return null;
-        }}
+        }
+    }
+
+    private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
+        User user = new User();
+        user.setId(resultSet.getInt("id"));
+        user.setName(resultSet.getString("name"));
+        user.setEmail(resultSet.getString("email"));
+        user.setPassword(resultSet.getString("password"));
+        return user;
+    }
+
+    private User[] findAllUserByUserGroupId(int userGroupId) {
+        try (Connection connection = DbUtil.getConnection()) {
+            User[] users = new User[0];
+            PreparedStatement statement = connection.prepareStatement(FIND_ALL_USERS_BY_USERGROUPID);
+            statement.setInt(1, userGroupId);
+            ResultSet resultSet = statement.executeQuery();
+            while (resultSet.next()) {
+                users = addToArray(getUserFromResultSet(resultSet), users);
+            }
+            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return new User[0];
+        }
+
+    }
+
 
 
 
