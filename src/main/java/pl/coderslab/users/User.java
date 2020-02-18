@@ -8,6 +8,7 @@ public class User {
     private String name;
     private String email;
     private String password;
+    private int userGroupId;
 
     public User(String name, String email, String password) {
         this.name = name;
@@ -54,6 +55,14 @@ public class User {
         return BCrypt.hashpw(plainTextPassword, BCrypt.gensalt());
     }
 
+    public int getUserGroupId() {
+        return userGroupId;
+    }
+
+    public void setUserGroupId(int userGroupId) {
+        this.userGroupId = userGroupId;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -61,6 +70,7 @@ public class User {
                 ", name='" + name + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", userGroupId=" + userGroupId +
                 '}';
     }
 }

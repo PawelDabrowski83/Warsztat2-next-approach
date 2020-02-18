@@ -9,6 +9,8 @@ public class UserManagement {
 
     private static final String COMMAND_LINE = "C - create, R - read, U - update, D - delete, F - findall, X - exit";
 
+    private static final UserDao userDao = new UserDao();
+
     public static void manage() {
         try (Scanner scanner = new Scanner(System.in)) {
 
@@ -24,6 +26,7 @@ public class UserManagement {
                         break;
                     case "r":
                         System.out.println("Read");
+                        read(scanner);
                         break;
                     case "u":
                         System.out.println("Update");
@@ -62,18 +65,44 @@ public class UserManagement {
             results[counter] = key;
             counter++;
         }
-//        System.out.println("Zapisuję użytkownika:" +
-//                "Nazwa: " + results[0] +
-//                "Email: " + results[1] +
-//                "Hasło: " + results[2]);
-        UserDao userDao = new UserDao();
+//        UserDao userDao = new UserDao();
         User user = new User(results[0], results[1], results[2]);
         System.out.println("Zapisuję użytkownika: " + user);
         user = userDao.create(user);
         System.out.println("zapisany użytkownik: " + user);
         System.out.println("Naciśnij ENTER, aby kontynuować");
+    }
 
+    private static void read(Scanner scanner) {
 
+        System.out.println("MODUŁ READ - wpisz X aby zakończyć");
+        String[] messages = {"Podaj id użytkownika, którego chcesz wczytać"};
+        int counter = 0;
+        int userId = 0;
+        while(counter == 0) {
+            System.out.println(messages[0]);
+            String key = scanner.nextLine().trim().toLowerCase();
+            if("x".equals(key)) {
+                System.out.println("Zamykam moduł READ");
+                System.out.println(COMMAND_LINE);
+                return;
+            }
+            try {
+                userId = Integer.parseInt(key);
+                counter++;
+            } catch (NumberFormatException e) {
+                System.out.println("Podaj poprawny numer lub X aby wyjść");
+            }
+        }
+        Optional<User> optionalUser = Optional.ofNullable(userDao.read(userId));
+        User user = optionalUser.orElseGet(User::new);
+        if(user.getId() == 0) {
+            System.out.println("Nie odnaleziono użytkownika");
+        } else {
+            System.out.println("Wczytany użytkownik to: " + user);
+        }
+
+        System.out.println("Naciśnij ENTER aby kontynuować");
 
     }
 
