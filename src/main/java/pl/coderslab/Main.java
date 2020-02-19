@@ -9,6 +9,7 @@ import pl.coderslab.userGroup.UserGroupDao;
 import pl.coderslab.users.UserManagement;
 import pl.coderslab.users.User;
 import pl.coderslab.users.UserDao;
+import pl.coderslab.users.UserServiceConsole;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -22,7 +23,8 @@ public class Main {
 
     public static void main(String[] args) {
 
-        UserManagement.manage();
+//        UserManagement.manage();
+        UserServiceConsole.manage();
 
 
     }

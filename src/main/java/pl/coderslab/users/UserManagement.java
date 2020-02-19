@@ -1,7 +1,5 @@
 package pl.coderslab.users;
 
-import java.sql.SQLException;
-import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -30,6 +28,7 @@ public class UserManagement {
                         break;
                     case "u":
                         System.out.println("Update");
+                        update(scanner);
                         break;
                     case "d":
                         System.out.println("Delete");
@@ -103,6 +102,39 @@ public class UserManagement {
         }
 
         System.out.println("Naciśnij ENTER aby kontynuować");
+
+    }
+
+    private static void update(Scanner scanner) {
+
+        System.out.println("MODUŁ UPDATE - wpisz X aby zakończyć");
+        String message = "Podaj id użytkownika, którego chcesz zmodyfikować";
+        int counter = 0;
+        int userId = 0;
+        while(counter == 0) {
+            System.out.println(message);
+            String key = scanner.nextLine().trim().toLowerCase();
+            if ("x".equals(key)) {
+                System.out.println("Zamykam moduł UPDATE");
+                System.out.println(COMMAND_LINE);
+                return;
+            }
+            try {
+                userId = Integer.parseInt(key);
+                counter++;
+            } catch (NumberFormatException e) {
+                System.out.println("Podaj poprawny nr lub X aby zakończyć");
+            }
+        }
+
+        Optional<User> optionalUser = Optional.ofNullable(userDao.read(userId));
+        User user = optionalUser.orElseGet(User::new);
+
+        if (user.getId() == 0) {
+            System.out.println("Nie odnaleziono użytkownika. Naciśnij ENTER, aby kontynuować.");
+        } else {
+            System.out.println("Dane użytkownika: " + user);
+        }
 
     }
 
