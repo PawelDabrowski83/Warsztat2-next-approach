@@ -14,13 +14,7 @@ public class UserServiceConsole {
 
     public static void manage() {
 
-        User[] users = USER_DAO.findAll();
-
-
-        for (User u : users) {
-            System.out.println("[ " + u.getId() + " ] " + u);
-        }
-        System.out.println(COMMAND_LINE);
+        findAllUsers();
 
         int userId = 0;
 
@@ -33,6 +27,7 @@ public class UserServiceConsole {
                         System.out.println("Nowy użytkownik");
                         User newUser = createUser(scanner);
                         System.out.println("User created: " + newUser);
+                        findAllUsers();
                         break;
                     case "x":
                         System.out.println("Exit");
@@ -49,12 +44,23 @@ public class UserServiceConsole {
                             }
                         } catch (NumberFormatException e) {
                             System.out.println("Niepoprawny numer.");
-                            System.out.println(COMMAND_LINE);
+                            findAllUsers();
                         }
                 }
             }
         }
     }
+
+    private static void findAllUsers() {
+        User[] users = USER_DAO.findAll();
+
+
+        for (User u : users) {
+            System.out.println("[ " + u.getId() + " ] " + u);
+        }
+        System.out.println(COMMAND_LINE);
+    }
+
     private static void userSettings(Scanner scanner, User user) {
         System.out.println("Current user: " + user);
         System.out.println(USER_MENU);
@@ -66,8 +72,8 @@ public class UserServiceConsole {
                     System.out.println("stwórz nowego");
                     User newUser = createUser(scanner);
                     System.out.println("User created: " + newUser);
-                    System.out.println(USER_MENU);
-                    break;
+                    findAllUsers();
+                    return;
                 case "x":
                     System.out.println("Exit");
                     return;
@@ -75,18 +81,18 @@ public class UserServiceConsole {
                     System.out.println("Delete");
                     user = deleteUser(user);
                     System.out.println("User deleted");
-                    System.out.println(USER_MENU);
+                    findAllUsers();
                     return;
                 case "e":
                     System.out.println("Edycja");
                     user = editUser(scanner, user);
                     System.out.println("User edited: " + user);
-                    System.out.println(USER_MENU);
-                    break;
+                    findAllUsers();
+                    return;
                 default:
-                    System.out.println(USER_MENU);
+                    findAllUsers();
+                    return;
             }
-            return;
         }
     }
 

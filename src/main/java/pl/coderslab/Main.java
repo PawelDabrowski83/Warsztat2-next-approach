@@ -2,11 +2,11 @@ package pl.coderslab;
 
 import pl.coderslab.exercise.Exercise;
 import pl.coderslab.exercise.ExerciseDao;
+import pl.coderslab.exercise.ExerciseServiceConsole;
 import pl.coderslab.solution.Solution;
 import pl.coderslab.solution.SolutionDao;
 import pl.coderslab.userGroup.UserGroup;
 import pl.coderslab.userGroup.UserGroupDao;
-import pl.coderslab.users.UserManagement;
 import pl.coderslab.users.User;
 import pl.coderslab.users.UserDao;
 import pl.coderslab.users.UserServiceConsole;
@@ -24,7 +24,8 @@ public class Main {
     public static void main(String[] args) {
 
 //        UserManagement.manage();
-        UserServiceConsole.manage();
+//        UserServiceConsole.manage();
+        ExerciseServiceConsole.manage();
 
 
     }
