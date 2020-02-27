@@ -40,7 +40,7 @@ public class SolutionDao {
                 return solution;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return null;
+                return new Solution();
             }
         }
 
@@ -61,7 +61,7 @@ public class SolutionDao {
                 e.printStackTrace();
                 System.out.println("Nullpointer");
             }
-            return null;
+            return new Solution();
         }
 
         public void update(Solution solution) {
@@ -106,7 +106,7 @@ public class SolutionDao {
                 return solutions;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return null;
+                return new Solution[0];
             }
         }
 
