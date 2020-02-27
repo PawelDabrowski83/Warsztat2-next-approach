@@ -37,8 +37,6 @@ public class UserGroupDao {
             }
         }
 
-
-
         public UserGroup read(int userGroupId) {
             try (Connection conn = DbUtil.getConnection()) {
                 PreparedStatement statement = conn.prepareStatement(READ_USERGROUP_QUERY);
