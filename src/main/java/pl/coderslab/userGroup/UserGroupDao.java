@@ -16,7 +16,7 @@ public class UserGroupDao {
         private static final String DELETE_USERGROUP_QUERY =
                 "DELETE FROM user_group WHERE id = ?";
         private static final String FIND_ALL_USERGROUPS_QUERY =
-                "SELECT * FROM user_group";
+                "SELECT * FROM user_group order by id";
 
 
 
@@ -33,7 +33,7 @@ public class UserGroupDao {
                 return userGroup;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return null;
+                return new UserGroup();
             }
         }
 
@@ -53,13 +53,14 @@ public class UserGroupDao {
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return null;
+            return new UserGroup();
         }
 
         public void update(UserGroup userGroup) {
             try (Connection conn = DbUtil.getConnection()) {
                 PreparedStatement statement = conn.prepareStatement(UPDATE_USERGROUP_QUERY);
                 statement.setString(1, userGroup.getName());
+                statement.setInt(2, userGroup.getId());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -95,6 +96,7 @@ public class UserGroupDao {
                 }
                 return userGroups;
             } catch (SQLException e) {
-                e.printStackTrace(); return null;
+                e.printStackTrace();
+                return new UserGroup[0];
             }}
 }

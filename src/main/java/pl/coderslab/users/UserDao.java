@@ -18,7 +18,7 @@ public class UserDao {
     private static final String FIND_ALL_USERS_QUERY =
             "SELECT * FROM users";
     private static final String FIND_ALL_USERS_BY_USERGROUPID =
-            "SELECT * FROM users WHERE usergroup_id = ?";
+            "SELECT * FROM users WHERE usergroup_id = ? order by id";
 
 
 

@@ -20,7 +20,7 @@ public class SolutionDao {
         private static final String FIND_SOLUTIONS_BY_USERID =
                 "SELECT * from solution where users_id = ?";
         private static final String FIND_ALL_BY_EXERCISEID =
-                "SELECT * from solution WHERE exercise_id = ?";
+                "SELECT * from solution WHERE exercise_id = ? order by id";
 
 
 

@@ -7,6 +7,7 @@ import pl.coderslab.solution.Solution;
 import pl.coderslab.solution.SolutionDao;
 import pl.coderslab.userGroup.UserGroup;
 import pl.coderslab.userGroup.UserGroupDao;
+import pl.coderslab.userGroup.UserGroupServiceConsole;
 import pl.coderslab.users.User;
 import pl.coderslab.users.UserDao;
 import pl.coderslab.users.UserServiceConsole;
@@ -25,8 +26,8 @@ public class Main {
 
 //        UserManagement.manage();
 //        UserServiceConsole.manage();
-        ExerciseServiceConsole.manage();
-
+//        ExerciseServiceConsole.manage();
+        UserGroupServiceConsole.manage();
 
     }
 

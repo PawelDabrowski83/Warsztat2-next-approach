@@ -16,7 +16,7 @@ public class ExerciseDao {
     private static final String DELETE_EXERCISE_QUERY =
             "DELETE FROM exercise WHERE id = ?";
     private static final String FIND_ALL_EXERCISES_QUERY =
-            "SELECT * FROM exercise";
+            "SELECT * FROM exercise order by id";
 
 
     public Exercise create(Exercise exercise) {
