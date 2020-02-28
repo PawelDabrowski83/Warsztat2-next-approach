@@ -109,10 +109,6 @@ public class SolutionDao {
         }
 
         private Solution getSolutionFromResultSet (ResultSet resultSet) throws SQLException {
-
-            ResultSetMetaData rsmd = resultSet.getMetaData();
-            System.out.println("count: " + rsmd.getColumnCount());
-
             Solution solution = new Solution();
             solution.setId(resultSet.getInt(1));
             solution.setCreated(resultSet.getTimestamp("create_date").toLocalDateTime());
@@ -121,7 +117,6 @@ public class SolutionDao {
             } catch (NullPointerException e) {
                 solution.setUpdated(null);
             }
-
             solution.setDescription(resultSet.getString("description"));
             solution.setExerciseId(resultSet.getInt("exercise_id"));
             solution.setUsersId(resultSet.getInt("users_id"));

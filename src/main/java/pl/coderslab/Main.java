@@ -17,21 +17,58 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
     private final static Random RANDOM = new Random();
     private final static int LIMITER = 1000;
+    private final static String MENU_OPTIONS = "Choose your option: 1 - User management, 2 - UserGroup management," +
+            "3 - Exercise management, 4 - Solutions management, X - exit";
 
     public static void main(String[] args) {
 
-//        UserManagement.manage();
-//        UserServiceConsole.manage();
-//        ExerciseServiceConsole.manage();
-//        UserGroupServiceConsole.manage();
-        SolutionAssignmentConsole.manage();
-//        testSolutions();
+        chooseService();
 
+    }
+
+    private static void chooseService() {
+        try (Scanner scanner = new Scanner(System.in)) {
+            System.out.println(MENU_OPTIONS);
+            while (scanner.hasNextLine()) {
+                String key = scanner.nextLine().trim().toLowerCase();
+
+                switch (key) {
+                    case "x":
+                        System.out.println("Exit");
+                        return;
+                    default:
+                        try {
+                            int selectionNumber = Integer.parseInt(key);
+                            switch (selectionNumber) {
+                                case 1:
+                                    UserServiceConsole.manage();
+                                    break;
+                                case 2:
+                                    UserGroupServiceConsole.manage();
+                                    break;
+                                case 3:
+                                    ExerciseServiceConsole.manage();
+                                    break;
+                                case 4:
+                                    SolutionAssignmentConsole.manage();
+                                    break;
+                                default:
+                                    System.out.println("Selection unrecognized");
+                            }
+
+                        } catch (NumberFormatException e) {
+                            System.out.println("Invalid input");
+                            System.out.println(MENU_OPTIONS);
+                        }
+                }
+            }
+        }
     }
 
     private static User safeReadUser (Optional<User> optionalUser)

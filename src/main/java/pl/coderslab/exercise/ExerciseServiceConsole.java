@@ -132,6 +132,6 @@ public class ExerciseServiceConsole {
 
     private static void deleteExercise(Exercise exercise) {
         EXERCISE_DAO.delete(exercise.getId());
-        System.out.println("User deleted");
+        System.out.println("Exercise deleted");
     }
 }
