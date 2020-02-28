@@ -94,6 +94,7 @@ public class SolutionAssignmentConsole {
                         } else {
                             solution.setExerciseId(exercise.getId());
                             solution.setCreated(LocalDateTime.now());
+                            System.out.println("Saving solution: " + solution);
                             SOLUTION_DAO.create(solution);
                             System.out.println("Solution created: " + solution);
                             return;

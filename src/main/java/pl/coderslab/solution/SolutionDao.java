@@ -35,7 +35,7 @@ public class SolutionDao {
                 statement.executeUpdate();
                 ResultSet resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {
-                    solution = getSolutionFromResultSet(resultSet);
+                    solution.setId(resultSet.getInt((1)));
                 }
                 return solution;
             } catch (SQLException e) {
@@ -43,8 +43,6 @@ public class SolutionDao {
                 return new Solution();
             }
         }
-
-
 
         public Solution read(int solutionId) {
             try (Connection conn = DbUtil.getConnection()) {
@@ -111,10 +109,19 @@ public class SolutionDao {
         }
 
         private Solution getSolutionFromResultSet (ResultSet resultSet) throws SQLException {
+
+            ResultSetMetaData rsmd = resultSet.getMetaData();
+            System.out.println("count: " + rsmd.getColumnCount());
+
             Solution solution = new Solution();
-            solution.setId(resultSet.getInt("id"));
+            solution.setId(resultSet.getInt(1));
             solution.setCreated(resultSet.getTimestamp("create_date").toLocalDateTime());
-            solution.setUpdated(resultSet.getTimestamp("update_date").toLocalDateTime());
+            try {
+                solution.setUpdated(resultSet.getTimestamp("update_date").toLocalDateTime());
+            } catch (NullPointerException e) {
+                solution.setUpdated(null);
+            }
+
             solution.setDescription(resultSet.getString("description"));
             solution.setExerciseId(resultSet.getInt("exercise_id"));
             solution.setUsersId(resultSet.getInt("users_id"));

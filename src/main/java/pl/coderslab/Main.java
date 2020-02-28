@@ -30,6 +30,7 @@ public class Main {
 //        ExerciseServiceConsole.manage();
 //        UserGroupServiceConsole.manage();
         SolutionAssignmentConsole.manage();
+//        testSolutions();
 
     }
 
