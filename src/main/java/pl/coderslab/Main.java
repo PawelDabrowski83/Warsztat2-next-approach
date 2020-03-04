@@ -28,7 +28,19 @@ public class Main {
 
     public static void main(String[] args) {
 
-        chooseService();
+//        chooseService();
+
+//        testUserGroupsConnection();
+        testUsers();
+    }
+
+    private static void testUserGroupsConnection() {
+        UserGroupDao userGroupDao = new UserGroupDao();
+        UserGroup[] userGroups = userGroupDao.findAll();
+
+        for (UserGroup u : userGroups) {
+            System.out.println(u);
+        }
 
     }
 

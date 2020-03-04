@@ -1,6 +1,7 @@
 package pl.coderslab.userGroup;
 
 import pl.coderslab.DbUtil;
+import pl.coderslab.DbUtilOld;
 
 import java.sql.*;
 import java.util.Arrays;
@@ -21,7 +22,7 @@ public class UserGroupDao {
 
 
         public UserGroup create(UserGroup userGroup) {
-            try (Connection conn = DbUtil.getConnection()) {
+            try (Connection conn = DbUtilOld.getConnection()) {
                 PreparedStatement statement =
                         conn.prepareStatement(CREATE_USERGROUP_QUERY, Statement.RETURN_GENERATED_KEYS);
                 statement.setString(1, userGroup.getName());
@@ -38,7 +39,7 @@ public class UserGroupDao {
         }
 
         public UserGroup read(int userGroupId) {
-            try (Connection conn = DbUtil.getConnection()) {
+            try (Connection conn = DbUtilOld.getConnection()) {
                 PreparedStatement statement = conn.prepareStatement(READ_USERGROUP_QUERY);
                 statement.setInt(1, userGroupId);
                 ResultSet resultSet = statement.executeQuery();
@@ -55,7 +56,7 @@ public class UserGroupDao {
         }
 
         public void update(UserGroup userGroup) {
-            try (Connection conn = DbUtil.getConnection()) {
+            try (Connection conn = DbUtilOld.getConnection()) {
                 PreparedStatement statement = conn.prepareStatement(UPDATE_USERGROUP_QUERY);
                 statement.setString(1, userGroup.getName());
                 statement.setInt(2, userGroup.getId());
@@ -66,7 +67,7 @@ public class UserGroupDao {
         }
 
         public void delete(int userGroupId) {
-            try (Connection conn = DbUtil.getConnection()) {
+            try (Connection conn = DbUtilOld.getConnection()) {
                 PreparedStatement statement = conn.prepareStatement(DELETE_USERGROUP_QUERY);
                 statement.setInt(1, userGroupId);
                 statement.executeUpdate();
@@ -82,7 +83,7 @@ public class UserGroupDao {
         }
 
         public UserGroup[] findAll() {
-            try (Connection conn = DbUtil.getConnection()) {
+            try (Connection conn = DbUtilOld.getConnection()) {
                 UserGroup[] userGroups = new UserGroup[0];
                 PreparedStatement statement = conn.prepareStatement(FIND_ALL_USERGROUPS_QUERY);
                 ResultSet resultSet = statement.executeQuery();
