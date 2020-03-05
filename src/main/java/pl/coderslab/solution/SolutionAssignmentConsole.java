@@ -1,8 +1,8 @@
 package pl.coderslab.solution;
 
-import pl.coderslab.exercise.Exercise;
+import pl.coderslab.exercise.ExerciseEntity;
 import pl.coderslab.exercise.ExerciseDao;
-import pl.coderslab.users.User;
+import pl.coderslab.users.UserEntity;
 import pl.coderslab.users.UserDao;
 
 import java.time.LocalDateTime;
@@ -46,7 +46,7 @@ public class SolutionAssignmentConsole {
 
         getAllUsers();
 
-        Solution solution = new Solution();
+        SolutionEntity solutionEntity = new SolutionEntity();
 
         while (scanner.hasNextLine()) {
             String key = scanner.nextLine().trim().toLowerCase();
@@ -58,13 +58,13 @@ public class SolutionAssignmentConsole {
                 default:
                     try {
                         int userId = Integer.parseInt(key);
-                        Optional<User> optionalUser = Optional.ofNullable(USER_DAO.read(userId));
-                        User user = optionalUser.orElseGet(User::new);
-                        if (user.getId() == 0) {
+                        Optional<UserEntity> optionalUser = Optional.ofNullable(USER_DAO.read(userId));
+                        UserEntity userEntity = optionalUser.orElseGet(UserEntity::new);
+                        if (userEntity.getId() == 0) {
                             System.out.println("No User with given id");
                         } else {
-                            solution.setUsersId(user.getId());
-                            assignExerciseToSolution(scanner, solution);
+                            solutionEntity.setUsersId(userEntity.getId());
+                            assignExerciseToSolution(scanner, solutionEntity);
                         }
                     } catch (NumberFormatException e) {
                         System.out.println("ID should be a proper number");
@@ -74,7 +74,7 @@ public class SolutionAssignmentConsole {
         }
     }
 
-    private static void assignExerciseToSolution (Scanner scanner, Solution solution) {
+    private static void assignExerciseToSolution (Scanner scanner, SolutionEntity solutionEntity) {
         getAllExercises();
 
         while (scanner.hasNextLine()) {
@@ -87,16 +87,16 @@ public class SolutionAssignmentConsole {
                 default:
                     try {
                         int exerciseId = Integer.parseInt(key);
-                        Optional<Exercise> optionalExercise = Optional.ofNullable(EXERCISE_DAO.read(exerciseId));
-                        Exercise exercise = optionalExercise.orElseGet(Exercise::new);
-                        if (exercise.getId() == 0) {
+                        Optional<ExerciseEntity> optionalExercise = Optional.ofNullable(EXERCISE_DAO.read(exerciseId));
+                        ExerciseEntity exerciseEntity = optionalExercise.orElseGet(ExerciseEntity::new);
+                        if (exerciseEntity.getId() == 0) {
                             System.out.println("No Exercise on given id");
                         } else {
-                            solution.setExerciseId(exercise.getId());
-                            solution.setCreated(LocalDateTime.now());
-                            System.out.println("Saving solution: " + solution);
-                            SOLUTION_DAO.create(solution);
-                            System.out.println("Solution created: " + solution);
+                            solutionEntity.setExerciseId(exerciseEntity.getId());
+                            solutionEntity.setCreated(LocalDateTime.now());
+                            System.out.println("Saving solution: " + solutionEntity);
+                            SOLUTION_DAO.create(solutionEntity);
+                            System.out.println("Solution created: " + solutionEntity);
                             return;
                         }
                     } catch (NumberFormatException e) {
@@ -120,14 +120,14 @@ public class SolutionAssignmentConsole {
                 default:
                     try {
                         int userId = Integer.parseInt(key);
-                        Optional<User> optionalUser = Optional.ofNullable(USER_DAO.read(userId));
-                        User user = optionalUser.orElseGet(User::new);
-                        if (user.getId() == 0) {
+                        Optional<UserEntity> optionalUser = Optional.ofNullable(USER_DAO.read(userId));
+                        UserEntity userEntity = optionalUser.orElseGet(UserEntity::new);
+                        if (userEntity.getId() == 0) {
                             System.out.println("No User with given ID");
                         } else {
-                            Solution[] solutions = SOLUTION_DAO.findAllByUserId(user.getId());
-                            System.out.println("Solution by current user: " + user);
-                            for (Solution s : solutions) {
+                            SolutionEntity[] solutionEntities = SOLUTION_DAO.findAllByUserId(userEntity.getId());
+                            System.out.println("Solution by current user: " + userEntity);
+                            for (SolutionEntity s : solutionEntities) {
                                 System.out.println("[ " + s.getId() + " ] " + s);
                             }
                         }
@@ -140,18 +140,18 @@ public class SolutionAssignmentConsole {
     }
 
     private static void getAllUsers() {
-        User[] users = USER_DAO.findAll();
+        UserEntity[] userEntities = USER_DAO.findAll();
 
-        for (User u : users) {
+        for (UserEntity u : userEntities) {
             System.out.println("[ " + u.getId() + " ] " + u);
         }
         System.out.println("Enter user id to select or X for exit");
     }
 
     private static void getAllExercises() {
-        Exercise[] exercises = EXERCISE_DAO.findAll();
+        ExerciseEntity[] exerciseEntities = EXERCISE_DAO.findAll();
 
-        for (Exercise e : exercises) {
+        for (ExerciseEntity e : exerciseEntities) {
             System.out.println("[ " + e.getId() + " ] " + e);
         }
         System.out.println("Enter exercise id to select or X to exit");

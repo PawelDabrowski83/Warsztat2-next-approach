@@ -19,18 +19,18 @@ public class ExerciseDao {
             "SELECT * FROM exercise order by id";
 
 
-    public Exercise create(Exercise exercise) {
+    public ExerciseEntity create(ExerciseEntity exerciseEntity) {
         try (Connection conn = DbUtilOld.getConnection()) {
             PreparedStatement statement =
                     conn.prepareStatement(CREATE_EXERCISE_QUERY, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, exercise.getTitle());
-            statement.setString(2, exercise.getDescription());
+            statement.setString(1, exerciseEntity.getTitle());
+            statement.setString(2, exerciseEntity.getDescription());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
-                exercise.setId(resultSet.getInt(1));
+                exerciseEntity.setId(resultSet.getInt(1));
             }
-            return exercise;
+            return exerciseEntity;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;
@@ -38,17 +38,17 @@ public class ExerciseDao {
     }
 
 
-    public Exercise read(int exerciseId) {
+    public ExerciseEntity read(int exerciseId) {
         try (Connection conn = DbUtilOld.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(READ_EXERCISE_QUERY);
             statement.setInt(1, exerciseId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                Exercise exercise = new Exercise();
-                exercise.setId(resultSet.getInt("id"));
-                exercise.setTitle(resultSet.getString("title"));
-                exercise.setDescription(resultSet.getString("description"));
-                return exercise;
+                ExerciseEntity exerciseEntity = new ExerciseEntity();
+                exerciseEntity.setId(resultSet.getInt("id"));
+                exerciseEntity.setTitle(resultSet.getString("title"));
+                exerciseEntity.setDescription(resultSet.getString("description"));
+                return exerciseEntity;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,12 +56,12 @@ public class ExerciseDao {
         return null;
     }
 
-    public void update(Exercise exercise) {
+    public void update(ExerciseEntity exerciseEntity) {
         try (Connection conn = DbUtilOld.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPDATE_EXERCISE_QUERY);
-            statement.setString(1, exercise.getTitle());
-            statement.setString(2, exercise.getDescription());
-            statement.setInt(3, exercise.getId());
+            statement.setString(1, exerciseEntity.getTitle());
+            statement.setString(2, exerciseEntity.getDescription());
+            statement.setInt(3, exerciseEntity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -78,25 +78,25 @@ public class ExerciseDao {
         }
     }
 
-    private Exercise[] addToArray(Exercise e, Exercise[] exercises) {
-        Exercise[] tmpExercises = Arrays.copyOf(exercises, exercises.length + 1);
-        tmpExercises[exercises.length] = e;
-        return tmpExercises;
+    private ExerciseEntity[] addToArray(ExerciseEntity e, ExerciseEntity[] exerciseEntities) {
+        ExerciseEntity[] tmpExerciseEntities = Arrays.copyOf(exerciseEntities, exerciseEntities.length + 1);
+        tmpExerciseEntities[exerciseEntities.length] = e;
+        return tmpExerciseEntities;
     }
 
-    public Exercise[] findAll() {
+    public ExerciseEntity[] findAll() {
         try (Connection conn = DbUtilOld.getConnection()) {
-            Exercise[] exercises = new Exercise[0];
+            ExerciseEntity[] exerciseEntities = new ExerciseEntity[0];
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_EXERCISES_QUERY);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                Exercise exercise = new Exercise();
-                exercise.setId(resultSet.getInt("id"));
-                exercise.setTitle(resultSet.getString("title"));
-                exercise.setDescription(resultSet.getString("description"));
-                exercises = addToArray(exercise, exercises);
+                ExerciseEntity exerciseEntity = new ExerciseEntity();
+                exerciseEntity.setId(resultSet.getInt("id"));
+                exerciseEntity.setTitle(resultSet.getString("title"));
+                exerciseEntity.setDescription(resultSet.getString("description"));
+                exerciseEntities = addToArray(exerciseEntity, exerciseEntities);
             }
-            return exercises;
+            return exerciseEntities;
         } catch (SQLException e) {
             e.printStackTrace();
             return null;

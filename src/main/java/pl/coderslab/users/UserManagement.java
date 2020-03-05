@@ -65,10 +65,10 @@ public class UserManagement {
             counter++;
         }
 //        UserDao userDao = new UserDao();
-        User user = new User(results[0], results[1], results[2]);
-        System.out.println("Zapisuję użytkownika: " + user);
-        user = userDao.create(user);
-        System.out.println("zapisany użytkownik: " + user);
+        UserEntity userEntity = new UserEntity(results[0], results[1], results[2]);
+        System.out.println("Zapisuję użytkownika: " + userEntity);
+        userEntity = userDao.create(userEntity);
+        System.out.println("zapisany użytkownik: " + userEntity);
         System.out.println("Naciśnij ENTER, aby kontynuować");
     }
 
@@ -93,12 +93,12 @@ public class UserManagement {
                 System.out.println("Podaj poprawny numer lub X aby wyjść");
             }
         }
-        Optional<User> optionalUser = Optional.ofNullable(userDao.read(userId));
-        User user = optionalUser.orElseGet(User::new);
-        if(user.getId() == 0) {
+        Optional<UserEntity> optionalUser = Optional.ofNullable(userDao.read(userId));
+        UserEntity userEntity = optionalUser.orElseGet(UserEntity::new);
+        if(userEntity.getId() == 0) {
             System.out.println("Nie odnaleziono użytkownika");
         } else {
-            System.out.println("Wczytany użytkownik to: " + user);
+            System.out.println("Wczytany użytkownik to: " + userEntity);
         }
 
         System.out.println("Naciśnij ENTER aby kontynuować");
@@ -127,13 +127,13 @@ public class UserManagement {
             }
         }
 
-        Optional<User> optionalUser = Optional.ofNullable(userDao.read(userId));
-        User user = optionalUser.orElseGet(User::new);
+        Optional<UserEntity> optionalUser = Optional.ofNullable(userDao.read(userId));
+        UserEntity userEntity = optionalUser.orElseGet(UserEntity::new);
 
-        if (user.getId() == 0) {
+        if (userEntity.getId() == 0) {
             System.out.println("Nie odnaleziono użytkownika. Naciśnij ENTER, aby kontynuować.");
         } else {
-            System.out.println("Dane użytkownika: " + user);
+            System.out.println("Dane użytkownika: " + userEntity);
         }
 
     }

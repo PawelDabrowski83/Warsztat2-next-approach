@@ -22,43 +22,43 @@ public class UserDao {
 
 
 
-    public User create(User user) {
+    public UserEntity create(UserEntity userEntity) {
         try (Connection conn = DbUtilOld.getConnection()) {
             PreparedStatement statement =
                     conn.prepareStatement(CREATE_USER_QUERY, Statement.RETURN_GENERATED_KEYS);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPassword());
+            statement.setString(1, userEntity.getName());
+            statement.setString(2, userEntity.getEmail());
+            statement.setString(3, userEntity.getPassword());
             statement.executeUpdate();
             ResultSet resultSet = statement.getGeneratedKeys();
             if (resultSet.next()) {
-                user.setId(resultSet.getInt(1));
+                userEntity.setId(resultSet.getInt(1));
             }
-            return user;
+            return userEntity;
         } catch (SQLIntegrityConstraintViolationException e) {
             e.printStackTrace();
             System.out.println("Zduplikowane wartości unikalne");
-            return new User();
+            return new UserEntity();
         } catch (SQLException e) {
             e.printStackTrace();
-            return new User();
+            return new UserEntity();
         }
     }
 
 
 
-    public User read(int userId) {
+    public UserEntity read(int userId) {
         try (Connection conn = DbUtilOld.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(READ_USER_QUERY);
             statement.setInt(1, userId);
             ResultSet resultSet = statement.executeQuery();
             if (resultSet.next()) {
-                User user = new User();
-                user.setId(resultSet.getInt("id"));
-                user.setName(resultSet.getString("name"));
-                user.setEmail(resultSet.getString("email"));
-                user.setPassword(resultSet.getString("password"));
-                return user;
+                UserEntity userEntity = new UserEntity();
+                userEntity.setId(resultSet.getInt("id"));
+                userEntity.setName(resultSet.getString("name"));
+                userEntity.setEmail(resultSet.getString("email"));
+                userEntity.setPassword(resultSet.getString("password"));
+                return userEntity;
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -66,13 +66,13 @@ public class UserDao {
         return null;
     }
 
-    public void update(User user) {
+    public void update(UserEntity userEntity) {
         try (Connection conn = DbUtilOld.getConnection()) {
             PreparedStatement statement = conn.prepareStatement(UPDATE_USER_QUERY);
-            statement.setString(1, user.getName());
-            statement.setString(2, user.getEmail());
-            statement.setString(3, user.getPassword());
-            statement.setInt(4, user.getId());
+            statement.setString(1, userEntity.getName());
+            statement.setString(2, userEntity.getEmail());
+            statement.setString(3, userEntity.getPassword());
+            statement.setInt(4, userEntity.getId());
             statement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,48 +89,48 @@ public class UserDao {
         }
     }
 
-    private User[] addToArray(User u, User[] users) {
-        User[] tmpUsers = Arrays.copyOf(users, users.length + 1);
-        tmpUsers[users.length] = u;
-        return tmpUsers;
+    private UserEntity[] addToArray(UserEntity u, UserEntity[] userEntities) {
+        UserEntity[] tmpUserEntities = Arrays.copyOf(userEntities, userEntities.length + 1);
+        tmpUserEntities[userEntities.length] = u;
+        return tmpUserEntities;
     }
 
-    public User[] findAll() {
+    public UserEntity[] findAll() {
         try (Connection conn = DbUtilOld.getConnection()) {
-            User[] users = new User[0];
+            UserEntity[] userEntities = new UserEntity[0];
             PreparedStatement statement = conn.prepareStatement(FIND_ALL_USERS_QUERY);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                users = addToArray(getUserFromResultSet(resultSet), users);
+                userEntities = addToArray(getUserFromResultSet(resultSet), userEntities);
             }
-            return users;
+            return userEntities;
         } catch (SQLException e) {
             e.printStackTrace(); return null;
         }
     }
 
-    private User getUserFromResultSet(ResultSet resultSet) throws SQLException {
-        User user = new User();
-        user.setId(resultSet.getInt("id"));
-        user.setName(resultSet.getString("name"));
-        user.setEmail(resultSet.getString("email"));
-        user.setPassword(resultSet.getString("password"));
-        return user;
+    private UserEntity getUserFromResultSet(ResultSet resultSet) throws SQLException {
+        UserEntity userEntity = new UserEntity();
+        userEntity.setId(resultSet.getInt("id"));
+        userEntity.setName(resultSet.getString("name"));
+        userEntity.setEmail(resultSet.getString("email"));
+        userEntity.setPassword(resultSet.getString("password"));
+        return userEntity;
     }
 
-    public User[] findAllUserByUserGroupId(int userGroupId) {
+    public UserEntity[] findAllUserByUserGroupId(int userGroupId) {
         try (Connection connection = DbUtilOld.getConnection()) {
-            User[] users = new User[0];
+            UserEntity[] userEntities = new UserEntity[0];
             PreparedStatement statement = connection.prepareStatement(FIND_ALL_USERS_BY_USERGROUPID);
             statement.setInt(1, userGroupId);
             ResultSet resultSet = statement.executeQuery();
             while (resultSet.next()) {
-                users = addToArray(getUserFromResultSet(resultSet), users);
+                userEntities = addToArray(getUserFromResultSet(resultSet), userEntities);
             }
-            return users;
+            return userEntities;
         } catch (SQLException e) {
             e.printStackTrace();
-            return new User[0];
+            return new UserEntity[0];
         }
 
     }

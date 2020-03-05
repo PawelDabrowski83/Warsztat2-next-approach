@@ -1,15 +1,15 @@
 package pl.coderslab;
 
-import pl.coderslab.exercise.Exercise;
+import pl.coderslab.exercise.ExerciseEntity;
 import pl.coderslab.exercise.ExerciseDao;
 import pl.coderslab.exercise.ExerciseServiceConsole;
-import pl.coderslab.solution.Solution;
+import pl.coderslab.solution.SolutionEntity;
 import pl.coderslab.solution.SolutionAssignmentConsole;
 import pl.coderslab.solution.SolutionDao;
-import pl.coderslab.userGroup.UserGroup;
+import pl.coderslab.userGroup.UserGroupEntity;
 import pl.coderslab.userGroup.UserGroupDao;
 import pl.coderslab.userGroup.UserGroupServiceConsole;
-import pl.coderslab.users.User;
+import pl.coderslab.users.UserEntity;
 import pl.coderslab.users.UserDao;
 import pl.coderslab.users.UserServiceConsole;
 
@@ -36,9 +36,9 @@ public class Main {
 
     private static void testUserGroupsConnection() {
         UserGroupDao userGroupDao = new UserGroupDao();
-        UserGroup[] userGroups = userGroupDao.findAll();
+        UserGroupEntity[] userGroupEntities = userGroupDao.findAll();
 
-        for (UserGroup u : userGroups) {
+        for (UserGroupEntity u : userGroupEntities) {
             System.out.println(u);
         }
 
@@ -83,110 +83,110 @@ public class Main {
         }
     }
 
-    private static User safeReadUser (Optional<User> optionalUser)
+    private static UserEntity safeReadUser (Optional<UserEntity> optionalUser)
     {
-        return optionalUser.orElseGet(User::new);
+        return optionalUser.orElseGet(UserEntity::new);
     }
 
     private static void testUsers() {
-        User user = new User();
-        user.setName("Robert");
-        user.setEmail("test." + RANDOM.nextInt(LIMITER) + "@wp.pl");
-        user.setPassword("lorem ipsum");
+        UserEntity userEntity = new UserEntity();
+        userEntity.setName("Robert");
+        userEntity.setEmail("test." + RANDOM.nextInt(LIMITER) + "@wp.pl");
+        userEntity.setPassword("lorem ipsum");
         UserDao userDao = new UserDao();
-        user = userDao.create(user);
-        System.out.println("id użytkownika: " + user.getId());
+        userEntity = userDao.create(userEntity);
+        System.out.println("id użytkownika: " + userEntity.getId());
 
         int id = 0;
-        User userSafe = safeReadUser(Optional.ofNullable(userDao.read(id)));
-        System.out.println("safe: " + userSafe);
+        UserEntity userEntitySafe = safeReadUser(Optional.ofNullable(userDao.read(id)));
+        System.out.println("safe: " + userEntitySafe);
 
-        userSafe.setName("Nowe imi222");
-        userDao.update(userSafe);
-        User user3 = safeReadUser(Optional.ofNullable(userDao.read(userSafe.getId())));
-        System.out.println("po zmianie nazwiska: " + user3);
+        userEntitySafe.setName("Nowe imi222");
+        userDao.update(userEntitySafe);
+        UserEntity userEntity3 = safeReadUser(Optional.ofNullable(userDao.read(userEntitySafe.getId())));
+        System.out.println("po zmianie nazwiska: " + userEntity3);
 
-        User[] allUsers = userDao.findAll();
+        UserEntity[] allUserEntities = userDao.findAll();
         System.out.println("");
 
     }
 
     private static void testUserGroups() {
         UserGroupDao userGroupDao = new UserGroupDao();
-        UserGroup userGroup = new UserGroup("Testowa" + RANDOM.nextInt(LIMITER));
-        userGroupDao.create(userGroup);
+        UserGroupEntity userGroupEntity = new UserGroupEntity("Testowa" + RANDOM.nextInt(LIMITER));
+        userGroupDao.create(userGroupEntity);
 
         int testUserGroupId = 0;
-        Optional<UserGroup> userGroupOptional = Optional.ofNullable(userGroupDao.read(testUserGroupId));
-        userGroup = userGroupOptional.orElseGet(UserGroup::new);
+        Optional<UserGroupEntity> userGroupOptional = Optional.ofNullable(userGroupDao.read(testUserGroupId));
+        userGroupEntity = userGroupOptional.orElseGet(UserGroupEntity::new);
 //        userGroup = userGroupDao.read(testUserGroupId);
-        System.out.println(userGroup.getName());
-        userGroup.setName("Zmiana");
-        userGroupDao.update(userGroup);
+        System.out.println(userGroupEntity.getName());
+        userGroupEntity.setName("Zmiana");
+        userGroupDao.update(userGroupEntity);
 //        userGroupDao.delete(testUserGroupId);
-        UserGroup[] userGroups = userGroupDao.findAll();
-        System.out.println("Lista" + Arrays.toString(userGroups));
+        UserGroupEntity[] userGroupEntities = userGroupDao.findAll();
+        System.out.println("Lista" + Arrays.toString(userGroupEntities));
     }
 
     public static void testExercises() {
         ExerciseDao exerciseDao = new ExerciseDao();
-        Exercise exercise = new Exercise("Title " + RANDOM.nextInt(LIMITER), "Description " + RANDOM.nextInt(LIMITER));
-        exerciseDao.create(exercise);
+        ExerciseEntity exerciseEntity = new ExerciseEntity("Title " + RANDOM.nextInt(LIMITER), "Description " + RANDOM.nextInt(LIMITER));
+        exerciseDao.create(exerciseEntity);
 
         int testExerciseId = 0;
-        Optional<Exercise> optionalExercise = Optional.ofNullable(exerciseDao.read(testExerciseId));
-        exercise = optionalExercise.orElseGet(Exercise::new);
+        Optional<ExerciseEntity> optionalExercise = Optional.ofNullable(exerciseDao.read(testExerciseId));
+        exerciseEntity = optionalExercise.orElseGet(ExerciseEntity::new);
 
-        System.out.println("GET tytuł: " + exercise.getTitle());
+        System.out.println("GET tytuł: " + exerciseEntity.getTitle());
 
-        Exercise[] exercises = exerciseDao.findAll();
-        exercise = exercises[0];
+        ExerciseEntity[] exerciseEntities = exerciseDao.findAll();
+        exerciseEntity = exerciseEntities[0];
 
-        exercise.setDescription("Poprawiony opis");
-        exerciseDao.update(exercise);
+        exerciseEntity.setDescription("Poprawiony opis");
+        exerciseDao.update(exerciseEntity);
 
-        optionalExercise = Optional.ofNullable(exerciseDao.read(exercise.getId()));
-        exercise = optionalExercise.orElseGet(Exercise::new);
+        optionalExercise = Optional.ofNullable(exerciseDao.read(exerciseEntity.getId()));
+        exerciseEntity = optionalExercise.orElseGet(ExerciseEntity::new);
 
-        System.out.println("Po aktualizacji: " + exercise.getDescription());
+        System.out.println("Po aktualizacji: " + exerciseEntity.getDescription());
 
 //        exerciseDao.delete(exercise.getId());
     }
 
     public static void testSolutions() {
         SolutionDao solutionDao = new SolutionDao();
-        Solution solution = testSolutionRead(solutionDao);
-        testSolutionUpdate(solutionDao, solution);
-        Solution[] solutions = solutionDao.findAll();
-        solutions = solutionDao.findAllByUserId(1);
-        solutions = solutionDao.findAllByExerciseId(0);
+        SolutionEntity solutionEntity = testSolutionRead(solutionDao);
+        testSolutionUpdate(solutionDao, solutionEntity);
+        SolutionEntity[] solutionEntities = solutionDao.findAll();
+        solutionEntities = solutionDao.findAllByUserId(1);
+        solutionEntities = solutionDao.findAllByExerciseId(0);
         UserDao userDao = new UserDao();
-        User[] users = userDao.findAllUserByUserGroupId(2);
-        System.out.println(solutions);
+        UserEntity[] userEntities = userDao.findAllUserByUserGroupId(2);
+        System.out.println(solutionEntities);
     }
 
     public static void testSolutionCreate(SolutionDao solutionDao) {
 
-        Solution solution = new Solution(LocalDateTime.now(), LocalDateTime.now(), "Opis " + RANDOM.nextInt(LIMITER), 4, 1);
-        solutionDao.create(solution);
+        SolutionEntity solutionEntity = new SolutionEntity(LocalDateTime.now(), LocalDateTime.now(), "Opis " + RANDOM.nextInt(LIMITER), 4, 1);
+        solutionDao.create(solutionEntity);
 
     }
 
-    public static Solution testSolutionRead(SolutionDao solutionDao) {
+    public static SolutionEntity testSolutionRead(SolutionDao solutionDao) {
 
         int solutionId = 6;
-        Optional<Solution> optionalSolution = Optional.ofNullable(solutionDao.read(solutionId));
-        Solution solution = optionalSolution.orElseGet(Solution::new);
+        Optional<SolutionEntity> optionalSolution = Optional.ofNullable(solutionDao.read(solutionId));
+        SolutionEntity solutionEntity = optionalSolution.orElseGet(SolutionEntity::new);
 
-        System.out.println("Description+++ solution: " + solution.getCreated());
-        return solution;
+        System.out.println("Description+++ solution: " + solutionEntity.getCreated());
+        return solutionEntity;
     }
 
-    public static void testSolutionUpdate(SolutionDao solutionDao, Solution solution) {
-        solution.setDescription("Nowy opis " + RANDOM.nextInt(LIMITER));
-        solution.setUpdated(LocalDateTime.now());
-        solution.getCreated();
-        solutionDao.update(solution);
+    public static void testSolutionUpdate(SolutionDao solutionDao, SolutionEntity solutionEntity) {
+        solutionEntity.setDescription("Nowy opis " + RANDOM.nextInt(LIMITER));
+        solutionEntity.setUpdated(LocalDateTime.now());
+        solutionEntity.getCreated();
+        solutionDao.update(solutionEntity);
     }
 
 }

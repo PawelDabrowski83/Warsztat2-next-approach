@@ -1,12 +1,18 @@
 package pl.coderslab.exercise;
 
-import java.util.Comparator;
-
-public class Exercise implements Comparator<Exercise> {
+public class ExerciseEntity {
 
     private int id;
     private String title;
     private String description;
+
+    public ExerciseEntity(String title, String description) {
+        this.title = title;
+        this.description = description;
+    }
+
+    public ExerciseEntity() {
+    }
 
     public int getId() {
         return id;
@@ -33,7 +39,11 @@ public class Exercise implements Comparator<Exercise> {
     }
 
     @Override
-    public int compare(Exercise o1, Exercise o2) {
-        return o1.title.compareToIgnoreCase(o2.title);
+    public String toString() {
+        return "Exercise{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                '}';
     }
 }

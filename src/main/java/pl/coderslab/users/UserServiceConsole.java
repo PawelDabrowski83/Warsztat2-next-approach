@@ -25,8 +25,8 @@ public class UserServiceConsole {
                 switch (key) {
                     case "n":
                         System.out.println("Nowy użytkownik");
-                        User newUser = createUser(scanner);
-                        System.out.println("User created: " + newUser);
+                        UserEntity newUserEntity = createUser(scanner);
+                        System.out.println("User created: " + newUserEntity);
                         findAllUsers();
                         break;
                     case "x":
@@ -35,12 +35,12 @@ public class UserServiceConsole {
                     default:
                         try {
                             userId = Integer.parseInt(key);
-                            Optional<User> optionalUser = Optional.ofNullable(USER_DAO.read(userId));
-                            User user = optionalUser.orElseGet(User::new);
-                            if (user.getId() == 0) {
+                            Optional<UserEntity> optionalUser = Optional.ofNullable(USER_DAO.read(userId));
+                            UserEntity userEntity = optionalUser.orElseGet(UserEntity::new);
+                            if (userEntity.getId() == 0) {
                                 System.out.println("Nie ma takiego użytkownika. Naciśnij enter, aby kontynuować");
                             } else {
-                                userSettings(scanner, user);
+                                userSettings(scanner, userEntity);
                             }
                         } catch (NumberFormatException e) {
                             System.out.println("Niepoprawny numer.");
@@ -52,17 +52,17 @@ public class UserServiceConsole {
     }
 
     private static void findAllUsers() {
-        User[] users = USER_DAO.findAll();
+        UserEntity[] userEntities = USER_DAO.findAll();
 
 
-        for (User u : users) {
+        for (UserEntity u : userEntities) {
             System.out.println("[ " + u.getId() + " ] " + u);
         }
         System.out.println(COMMAND_LINE);
     }
 
-    private static void userSettings(Scanner scanner, User user) {
-        System.out.println("Current user: " + user);
+    private static void userSettings(Scanner scanner, UserEntity userEntity) {
+        System.out.println("Current user: " + userEntity);
         System.out.println(USER_MENU);
         while(scanner.hasNextLine()) {
             String key = scanner.nextLine().trim().toLowerCase();
@@ -70,8 +70,8 @@ public class UserServiceConsole {
             switch (key) {
                 case "n":
                     System.out.println("stwórz nowego");
-                    User newUser = createUser(scanner);
-                    System.out.println("User created: " + newUser);
+                    UserEntity newUserEntity = createUser(scanner);
+                    System.out.println("User created: " + newUserEntity);
                     findAllUsers();
                     return;
                 case "x":
@@ -79,14 +79,14 @@ public class UserServiceConsole {
                     return;
                 case "d":
                     System.out.println("Delete");
-                    user = deleteUser(user);
+                    userEntity = deleteUser(userEntity);
                     System.out.println("User deleted");
                     findAllUsers();
                     return;
                 case "e":
                     System.out.println("Edycja");
-                    user = editUser(scanner, user);
-                    System.out.println("User edited: " + user);
+                    userEntity = editUser(scanner, userEntity);
+                    System.out.println("User edited: " + userEntity);
                     findAllUsers();
                     return;
                 default:
@@ -96,7 +96,7 @@ public class UserServiceConsole {
         }
     }
 
-    private static User createUser(Scanner scanner) {
+    private static UserEntity createUser(Scanner scanner) {
         String[] messages = {"Podaj nazwę użytkownika:", "Email:", "Hasło:"};
         String[] buffer = new String[messages.length];
         int counter = 0;
@@ -106,17 +106,17 @@ public class UserServiceConsole {
             counter++;
         }
         System.out.println("Tworzę nowego użytkownika");
-        User user = new User(buffer[0], buffer[1], buffer[2]);
-        user = USER_DAO.create(user);
-        return user;
+        UserEntity userEntity = new UserEntity(buffer[0], buffer[1], buffer[2]);
+        userEntity = USER_DAO.create(userEntity);
+        return userEntity;
     }
 
-    private static User editUser(Scanner scanner, User user) {
+    private static UserEntity editUser(Scanner scanner, UserEntity userEntity) {
         String[] messages = {"Podaj nazwę użytkownika: ", "Email: ", "Hasło: "};
         String[] buffer = new String[messages.length];
-        buffer[0] = user.getName();
-        buffer[1] = user.getEmail();
-        buffer[2] = user.getPassword();
+        buffer[0] = userEntity.getName();
+        buffer[1] = userEntity.getEmail();
+        buffer[2] = userEntity.getPassword();
         int counter = 0;
         while(counter < messages.length) {
             System.out.println("Wpisz nowe dane lub wciśnij ENTER, aby zostawić bez zmian");
@@ -128,16 +128,16 @@ public class UserServiceConsole {
             counter++;
         }
         System.out.println("Edytuję użytkownika");
-        user.setName(buffer[0]);
-        user.setEmail(buffer[1]);
-        user.setPassword(buffer[2]);
-        USER_DAO.update(user);
-        return user;
+        userEntity.setName(buffer[0]);
+        userEntity.setEmail(buffer[1]);
+        userEntity.setPassword(buffer[2]);
+        USER_DAO.update(userEntity);
+        return userEntity;
     }
 
-    private static User deleteUser(User user) {
-        USER_DAO.delete(user.getId());
-        return new User();
+    private static UserEntity deleteUser(UserEntity userEntity) {
+        USER_DAO.delete(userEntity.getId());
+        return new UserEntity();
 
     }
 

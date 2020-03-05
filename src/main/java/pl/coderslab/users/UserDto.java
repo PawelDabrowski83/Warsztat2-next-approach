@@ -1,16 +1,12 @@
 package pl.coderslab.users;
 
-import pl.coderslab.userGroup.UserGroup;
-
-import java.util.Comparator;
-
-public class User implements Comparator<User> {
+public class UserDto {
 
     private int id;
     private String name;
     private String email;
     private String password;
-    private UserGroup userGroup;
+    private int userGroupId;
 
     public int getId() {
         return id;
@@ -44,16 +40,11 @@ public class User implements Comparator<User> {
         this.password = password;
     }
 
-    public UserGroup getUserGroup() {
-        return userGroup;
+    public int getUserGroupId() {
+        return userGroupId;
     }
 
-    public void setUserGroup(UserGroup userGroup) {
-        this.userGroup = userGroup;
-    }
-
-    @Override
-    public int compare(User o1, User o2) {
-        return o1.email.compareToIgnoreCase(o2.email);
+    public void setUserGroupId(int userGroupId) {
+        this.userGroupId = userGroupId;
     }
 }

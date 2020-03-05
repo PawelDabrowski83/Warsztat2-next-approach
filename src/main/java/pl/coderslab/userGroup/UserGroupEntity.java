@@ -1,11 +1,16 @@
 package pl.coderslab.userGroup;
 
-import java.util.Comparator;
-
-public class UserGroup implements Comparator<UserGroup> {
+public class UserGroupEntity {
 
     private int id;
     private String name;
+
+    public UserGroupEntity(String name) {
+        this.name = name;
+    }
+
+    public UserGroupEntity() {
+    }
 
     public int getId() {
         return id;
@@ -24,7 +29,10 @@ public class UserGroup implements Comparator<UserGroup> {
     }
 
     @Override
-    public int compare(UserGroup o1, UserGroup o2) {
-        return o1.name.compareTo(o2.name);
+    public String toString() {
+        return "UserGroup{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

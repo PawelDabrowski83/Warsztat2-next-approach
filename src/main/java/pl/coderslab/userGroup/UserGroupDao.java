@@ -20,45 +20,45 @@ public class UserGroupDao {
 
 
 
-        public UserGroup create(UserGroup userGroup) {
+        public UserGroupEntity create(UserGroupEntity userGroupEntity) {
             try (Connection conn = DbUtilOld.getConnection()) {
                 PreparedStatement statement =
                         conn.prepareStatement(CREATE_USERGROUP_QUERY, Statement.RETURN_GENERATED_KEYS);
-                statement.setString(1, userGroup.getName());
+                statement.setString(1, userGroupEntity.getName());
                 statement.executeUpdate();
                 ResultSet resultSet = statement.getGeneratedKeys();
                 if (resultSet.next()) {
-                    userGroup.setId(resultSet.getInt(1));
+                    userGroupEntity.setId(resultSet.getInt(1));
                 }
-                return userGroup;
+                return userGroupEntity;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return new UserGroup();
+                return new UserGroupEntity();
             }
         }
 
-        public UserGroup read(int userGroupId) {
+        public UserGroupEntity read(int userGroupId) {
             try (Connection conn = DbUtilOld.getConnection()) {
                 PreparedStatement statement = conn.prepareStatement(READ_USERGROUP_QUERY);
                 statement.setInt(1, userGroupId);
                 ResultSet resultSet = statement.executeQuery();
                 if (resultSet.next()) {
-                    UserGroup userGroup = new UserGroup();
-                    userGroup.setId(resultSet.getInt("id"));
-                    userGroup.setName(resultSet.getString("name"));
-                    return userGroup;
+                    UserGroupEntity userGroupEntity = new UserGroupEntity();
+                    userGroupEntity.setId(resultSet.getInt("id"));
+                    userGroupEntity.setName(resultSet.getString("name"));
+                    return userGroupEntity;
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-            return new UserGroup();
+            return new UserGroupEntity();
         }
 
-        public void update(UserGroup userGroup) {
+        public void update(UserGroupEntity userGroupEntity) {
             try (Connection conn = DbUtilOld.getConnection()) {
                 PreparedStatement statement = conn.prepareStatement(UPDATE_USERGROUP_QUERY);
-                statement.setString(1, userGroup.getName());
-                statement.setInt(2, userGroup.getId());
+                statement.setString(1, userGroupEntity.getName());
+                statement.setInt(2, userGroupEntity.getId());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 e.printStackTrace();
@@ -75,26 +75,26 @@ public class UserGroupDao {
             }
         }
 
-        private UserGroup[] addToArray(UserGroup u, UserGroup[] userGroups) {
-            UserGroup[] tmpUserGroups = Arrays.copyOf(userGroups, userGroups.length + 1);
-            tmpUserGroups[userGroups.length] = u;
-            return tmpUserGroups;
+        private UserGroupEntity[] addToArray(UserGroupEntity u, UserGroupEntity[] userGroupEntities) {
+            UserGroupEntity[] tmpUserGroupEntities = Arrays.copyOf(userGroupEntities, userGroupEntities.length + 1);
+            tmpUserGroupEntities[userGroupEntities.length] = u;
+            return tmpUserGroupEntities;
         }
 
-        public UserGroup[] findAll() {
+        public UserGroupEntity[] findAll() {
             try (Connection conn = DbUtilOld.getConnection()) {
-                UserGroup[] userGroups = new UserGroup[0];
+                UserGroupEntity[] userGroupEntities = new UserGroupEntity[0];
                 PreparedStatement statement = conn.prepareStatement(FIND_ALL_USERGROUPS_QUERY);
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
-                    UserGroup userGroup = new UserGroup();
-                    userGroup.setId(resultSet.getInt("id"));
-                    userGroup.setName(resultSet.getString("name"));
-                    userGroups = addToArray(userGroup, userGroups);
+                    UserGroupEntity userGroupEntity = new UserGroupEntity();
+                    userGroupEntity.setId(resultSet.getInt("id"));
+                    userGroupEntity.setName(resultSet.getString("name"));
+                    userGroupEntities = addToArray(userGroupEntity, userGroupEntities);
                 }
-                return userGroups;
+                return userGroupEntities;
             } catch (SQLException e) {
                 e.printStackTrace();
-                return new UserGroup[0];
+                return new UserGroupEntity[0];
             }}
 }

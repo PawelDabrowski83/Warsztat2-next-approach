@@ -1,8 +1,6 @@
 package pl.coderslab.exercise;
 
-import java.util.Comparator;
-
-public class Exercise implements Comparator<Exercise> {
+public class ExerciseDto {
 
     private int id;
     private String title;
@@ -30,10 +28,5 @@ public class Exercise implements Comparator<Exercise> {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    @Override
-    public int compare(Exercise o1, Exercise o2) {
-        return o1.title.compareToIgnoreCase(o2.title);
     }
 }

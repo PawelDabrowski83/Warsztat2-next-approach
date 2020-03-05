@@ -29,13 +29,13 @@ public class ExerciseServiceConsole {
                     default:
                         try {
                             int exerciseId = Integer.parseInt(key);
-                            Optional<Exercise> optionalExercise = Optional.ofNullable(EXERCISE_DAO.read(exerciseId));
-                            Exercise exercise = optionalExercise.orElseGet(Exercise::new);
+                            Optional<ExerciseEntity> optionalExercise = Optional.ofNullable(EXERCISE_DAO.read(exerciseId));
+                            ExerciseEntity exerciseEntity = optionalExercise.orElseGet(ExerciseEntity::new);
 
-                            if (exercise.getId() == 0) {
+                            if (exerciseEntity.getId() == 0) {
                                 System.out.println("No such exercise or invalid id");
                             } else {
-                                exerciseDetails(scanner, exercise);
+                                exerciseDetails(scanner, exerciseEntity);
                             }
 
                         } catch (NumberFormatException e) {
@@ -53,16 +53,16 @@ public class ExerciseServiceConsole {
     }
 
     private static void findAllExercises() {
-        Exercise[] exercises = EXERCISE_DAO.findAll();
+        ExerciseEntity[] exerciseEntities = EXERCISE_DAO.findAll();
 
-        for (Exercise exercise : exercises) {
-            System.out.println("[ " + exercise.getId() + " ] " + exercise);
+        for (ExerciseEntity exerciseEntity : exerciseEntities) {
+            System.out.println("[ " + exerciseEntity.getId() + " ] " + exerciseEntity);
         }
         System.out.println(COMMAND_LINE);
     }
 
-    private static void exerciseDetails(Scanner scanner, Exercise exercise) {
-        System.out.println("Selected Exercise: " + exercise);
+    private static void exerciseDetails(Scanner scanner, ExerciseEntity exerciseEntity) {
+        System.out.println("Selected Exercise: " + exerciseEntity);
         System.out.println(DETAILS_MENU);
 
         while (scanner.hasNextLine()) {
@@ -76,11 +76,11 @@ public class ExerciseServiceConsole {
                     return;
                 case "e":
                     System.out.println("Edit Exercise");
-                    editExercise(scanner, exercise);
+                    editExercise(scanner, exerciseEntity);
                     return;
                 case "d":
                     System.out.println("Delete Exercise");
-                    deleteExercise(exercise);
+                    deleteExercise(exerciseEntity);
                     return;
                 case "x":
                     System.out.println("Exit details");
@@ -102,18 +102,18 @@ public class ExerciseServiceConsole {
                 counter++;
             }
 
-        Exercise exercise = new Exercise(results[0], results[1]);
-        exercise = EXERCISE_DAO.create(exercise);
-        System.out.println("Exercise created: " + exercise);
+        ExerciseEntity exerciseEntity = new ExerciseEntity(results[0], results[1]);
+        exerciseEntity = EXERCISE_DAO.create(exerciseEntity);
+        System.out.println("Exercise created: " + exerciseEntity);
     }
 
-    private static void editExercise(Scanner scanner, Exercise exercise) {
+    private static void editExercise(Scanner scanner, ExerciseEntity exerciseEntity) {
         String introMessage = "Enter new values or press ENTER to leave them unchanged";
         String[] messages = {
-            "Exercise Title: " + exercise.getTitle(),
-            "Exercise Description: " + exercise.getDescription()
+            "Exercise Title: " + exerciseEntity.getTitle(),
+            "Exercise Description: " + exerciseEntity.getDescription()
             };
-        String[] results = {exercise.getTitle(), exercise.getDescription()};
+        String[] results = {exerciseEntity.getTitle(), exerciseEntity.getDescription()};
         int counter = 0;
         System.out.println(introMessage);
 
@@ -125,13 +125,13 @@ public class ExerciseServiceConsole {
             }
             counter++;
         }
-        exercise.setTitle(results[0]);
-        exercise.setDescription(results[1]);
-        EXERCISE_DAO.update(exercise);
+        exerciseEntity.setTitle(results[0]);
+        exerciseEntity.setDescription(results[1]);
+        EXERCISE_DAO.update(exerciseEntity);
     }
 
-    private static void deleteExercise(Exercise exercise) {
-        EXERCISE_DAO.delete(exercise.getId());
+    private static void deleteExercise(ExerciseEntity exerciseEntity) {
+        EXERCISE_DAO.delete(exerciseEntity.getId());
         System.out.println("Exercise deleted");
     }
 }

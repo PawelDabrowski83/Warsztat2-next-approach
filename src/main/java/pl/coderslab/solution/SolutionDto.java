@@ -1,19 +1,15 @@
 package pl.coderslab.solution;
 
-import pl.coderslab.exercise.Exercise;
-import pl.coderslab.users.User;
-
 import java.time.LocalDateTime;
-import java.util.Comparator;
 
-public class Solution implements Comparator<Solution> {
+public class SolutionDto {
 
     private int id;
     private LocalDateTime created;
     private LocalDateTime updated;
     private String description;
-    private Exercise exercise;
-    private User user;
+    private int exerciseId;
+    private int usersId;
 
     public int getId() {
         return id;
@@ -47,24 +43,19 @@ public class Solution implements Comparator<Solution> {
         this.description = description;
     }
 
-    public Exercise getExercise() {
-        return exercise;
+    public int getExerciseId() {
+        return exerciseId;
     }
 
-    public void setExercise(Exercise exercise) {
-        this.exercise = exercise;
+    public void setExerciseId(int exerciseId) {
+        this.exerciseId = exerciseId;
     }
 
-    public User getUser() {
-        return user;
+    public int getUsersId() {
+        return usersId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    @Override
-    public int compare(Solution o1, Solution o2) {
-        return o1.created.compareTo(o2.created);
+    public void setUsersId(int usersId) {
+        this.usersId = usersId;
     }
 }
