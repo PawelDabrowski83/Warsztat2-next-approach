@@ -2,7 +2,7 @@ package pl.coderslab.exercise;
 
 public class ExerciseMapper {
 
-    public Exercise mapDtoToExercise (ExerciseDto dto) {
+    public static Exercise mapDtoToExercise (ExerciseDto dto) {
         Exercise exercise = new Exercise();
         exercise.setId(dto.getId());
         exercise.setTitle(dto.getTitle());
@@ -10,7 +10,7 @@ public class ExerciseMapper {
         return exercise;
     }
 
-    public ExerciseDto mapExerciseToDto (Exercise exercise) {
+    public static ExerciseDto mapExerciseToDto (Exercise exercise) {
         ExerciseDto dto = new ExerciseDto();
         dto.setId(exercise.getId());
         dto.setTitle(exercise.getTitle());
@@ -18,7 +18,7 @@ public class ExerciseMapper {
         return dto;
     }
 
-    public Exercise mapEntityToExercise (ExerciseEntity entity) {
+    public static Exercise mapEntityToExercise (ExerciseEntity entity) {
         Exercise exercise = new Exercise();
         exercise.setId(entity.getId());
         exercise.setTitle(entity.getTitle());
@@ -26,7 +26,7 @@ public class ExerciseMapper {
         return exercise;
     }
 
-    public ExerciseEntity mapExerciseToEntity (Exercise exercise) {
+    public static ExerciseEntity mapExerciseToEntity (Exercise exercise) {
         ExerciseEntity entity = new ExerciseEntity();
         entity.setId(exercise.getId());
         entity.setTitle(exercise.getTitle());

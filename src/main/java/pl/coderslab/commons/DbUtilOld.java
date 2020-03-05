@@ -12,6 +12,13 @@ public class DbUtilOld {
     private final static String PASSWORD = "coderslab";
 
     public static Connection getConnection() throws SQLException {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Class not found");
+        }
+
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 }
