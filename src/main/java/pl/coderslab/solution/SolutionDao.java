@@ -21,6 +21,8 @@ public class SolutionDao {
                 "SELECT * from solution where users_id = ?";
         private static final String FIND_ALL_BY_EXERCISEID =
                 "SELECT * from solution WHERE exercise_id = ? order by id";
+        private static final String FIND_RECENT_SOLUTIONS =
+                "SELECT * FROM solution ORDER BY create_date DESC LIMIT ?";
 
 
 
@@ -144,6 +146,22 @@ public class SolutionDao {
                 Solution[] solutions = new Solution[0];
                 PreparedStatement statement = connection.prepareStatement(FIND_ALL_BY_EXERCISEID);
                 statement.setInt(1, exerciseId);
+                ResultSet resultSet = statement.executeQuery();
+                while (resultSet.next()) {
+                    solutions = addToArray(getSolutionFromResultSet(resultSet), solutions);
+                }
+                return solutions;
+            } catch (SQLException e) {
+                e.printStackTrace();
+                return new Solution[0];
+            }
+        }
+
+        public Solution[] findRecentSolution(int limit) {
+            try (Connection connection = DbUtilOld.getConnection()) {
+                Solution[] solutions = new Solution[0];
+                PreparedStatement statement = connection.prepareStatement(FIND_RECENT_SOLUTIONS);
+                statement.setInt(1, limit);
                 ResultSet resultSet = statement.executeQuery();
                 while (resultSet.next()) {
                     solutions = addToArray(getSolutionFromResultSet(resultSet), solutions);
