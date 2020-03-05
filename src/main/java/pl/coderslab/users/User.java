@@ -1,6 +1,6 @@
 package pl.coderslab.users;
 
-import pl.coderslab.BCrypt;
+import pl.coderslab.commons.BCrypt;
 
 public class User {
 

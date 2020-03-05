@@ -1,4 +1,4 @@
-package pl.coderslab;
+package pl.coderslab.commons;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
