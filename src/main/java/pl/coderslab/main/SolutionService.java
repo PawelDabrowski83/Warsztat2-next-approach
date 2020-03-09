@@ -13,7 +13,7 @@ public class SolutionService {
     private final static SolutionMapper SOLUTION_MAPPER = new SolutionMapper();
 
     public static SolutionDto getSolutionById(int id) {
-        Optional<SolutionEntity> optionalSolutionEntity = Optional.of(SOLUTION_DAO.read(id));
+        Optional<SolutionEntity> optionalSolutionEntity = Optional.ofNullable(SOLUTION_DAO.read(id));
         SolutionEntity entity = optionalSolutionEntity.orElseGet(SolutionEntity::new);
         return SolutionMapper.mapSolutionToDto(SolutionMapper.mapEntityToSolution(entity));
     }

@@ -2,7 +2,7 @@ package pl.coderslab.exercise;
 
 import java.util.Comparator;
 
-public class Exercise implements Comparator<Exercise> {
+public class Exercise implements Comparable<Exercise> {
 
     private int id;
     private String title;
@@ -33,7 +33,7 @@ public class Exercise implements Comparator<Exercise> {
     }
 
     @Override
-    public int compare(Exercise o1, Exercise o2) {
-        return o1.title.compareToIgnoreCase(o2.title);
+    public int compareTo(Exercise o) {
+        return this.title.compareToIgnoreCase(o.title);
     }
 }

@@ -4,9 +4,8 @@ import pl.coderslab.exercise.Exercise;
 import pl.coderslab.users.User;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
 
-public class Solution implements Comparator<Solution> {
+public class Solution implements Comparable<Solution> {
 
     private int id;
     private LocalDateTime created;
@@ -64,7 +63,7 @@ public class Solution implements Comparator<Solution> {
     }
 
     @Override
-    public int compare(Solution o1, Solution o2) {
-        return o1.created.compareTo(o2.created);
+    public int compareTo(Solution o) {
+        return Integer.compare(this.id, o.id);
     }
 }

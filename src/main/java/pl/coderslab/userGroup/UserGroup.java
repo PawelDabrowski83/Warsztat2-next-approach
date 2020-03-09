@@ -1,8 +1,6 @@
 package pl.coderslab.userGroup;
 
-import java.util.Comparator;
-
-public class UserGroup implements Comparator<UserGroup> {
+public class UserGroup implements Comparable<UserGroup> {
 
     private int id;
     private String name;
@@ -24,7 +22,8 @@ public class UserGroup implements Comparator<UserGroup> {
     }
 
     @Override
-    public int compare(UserGroup o1, UserGroup o2) {
-        return o1.name.compareTo(o2.name);
+    public int compareTo(UserGroup o) {
+        return this.name.compareTo(o.name);
     }
+
 }
