@@ -26,7 +26,7 @@
     <tr>
         <td>${solution.created}</td>
         <td>${solution.description}</td>
-        <td>${solution.userId}</td>
+        <td>${solution.usersId}</td>
         <td>${solution.exerciseId}</td>
     </tr>
 </table>

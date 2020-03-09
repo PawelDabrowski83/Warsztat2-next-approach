@@ -25,7 +25,7 @@ public class SolutionController extends HttpServlet {
             }
 
             request.setAttribute("solution", dto);
-            getServletContext().getRequestDispatcher("/solution.jsp").forward(request, response);
+            getServletContext().getRequestDispatcher("/WEB-INF/jsp/solution.jsp").forward(request, response);
 
         }
 
