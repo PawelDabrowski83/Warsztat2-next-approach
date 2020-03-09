@@ -25,7 +25,7 @@
         <tr>
             <td>${group.id}</td>
             <td>${group.name}</td>
-            <td><a href="${pageContext.request.contextPath}/group?id="${group.id}>Show details</a></td>
+            <td><a href="${pageContext.request.contextPath}/group?id=${group.id}">Show details</a></td>
         </tr>
     </c:forEach>
 </table>
