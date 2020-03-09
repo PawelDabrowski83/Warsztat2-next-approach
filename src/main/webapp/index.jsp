@@ -11,7 +11,7 @@
 <head>
     <title>Main view</title>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <jsp:include page="/WEB-INF/jsp/styles.jsp"/>
 </head>
 <body>
 
@@ -19,7 +19,7 @@
 
 <p>Hello world</p>
 
-<table border="1" cellpadding="5">
+<table>
     <caption>Recent solutions</caption>
     <tr>
         <th>id</th>
@@ -28,6 +28,7 @@
         <th>description</th>
         <th>user id</th>
         <th>exercise id</th>
+        <th>details</th>
     </tr>
     <c:forEach items="${requestScope.recentSolutions}" var="solution">
         <tr>
@@ -37,6 +38,7 @@
             <td>${solution.description}</td>
             <td>${solution.usersId}</td>
             <td>${solution.exerciseId}</td>
+            <td><a href="${pageContext.request.contextPath}/solution?id=${solution.id}">Show details</a></td>
         </tr>
     </c:forEach>
 </table>
