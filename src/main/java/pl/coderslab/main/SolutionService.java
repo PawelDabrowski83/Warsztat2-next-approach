@@ -24,4 +24,12 @@ public class SolutionService {
                 SolutionMapper.mapEntityToSolutionArray(
                         entities));
     }
+
+    public static SolutionDto[] findAll() {
+        SolutionEntity[] entities = SOLUTION_DAO.findAll();
+        return Arrays.stream(entities)
+                .map(SolutionMapper::mapEntityToSolution)
+                .map(SolutionMapper::mapSolutionToDto)
+                .toArray(SolutionDto[]::new);
+    }
 }
