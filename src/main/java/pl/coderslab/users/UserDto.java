@@ -7,6 +7,7 @@ public class UserDto {
     private String email;
     private String password;
     private int userGroupId;
+    private int solutions;
 
     public int getId() {
         return id;
@@ -46,5 +47,13 @@ public class UserDto {
 
     public void setUserGroupId(int userGroupId) {
         this.userGroupId = userGroupId;
+    }
+
+    public int getSolutions() {
+        return solutions;
+    }
+
+    public void setSolutions(int solutions) {
+        this.solutions = solutions;
     }
 }

@@ -24,6 +24,8 @@ public class SolutionDao {
                 "SELECT * from solution WHERE exercise_id = ? order by id";
         private static final String FIND_RECENT_SOLUTIONS =
                 "SELECT * FROM solution ORDER BY create_date DESC LIMIT ?";
+        private static final String COUNT_SOLUTIONS_BY_USERID =
+                "SELECT count(*) AS Number from solution where users_id = ?";
 
 
 
@@ -114,7 +116,11 @@ public class SolutionDao {
         private SolutionEntity getSolutionFromResultSet (ResultSet resultSet) throws SQLException {
             SolutionEntity solutionEntity = new SolutionEntity();
             solutionEntity.setId(resultSet.getInt(1));
-            solutionEntity.setCreated(resultSet.getTimestamp("create_date").toLocalDateTime());
+            try {
+                solutionEntity.setCreated(resultSet.getTimestamp("create_date").toLocalDateTime());
+            } catch (NullPointerException e) {
+                solutionEntity.setCreated(null);
+            }
             try {
                 solutionEntity.setUpdated(resultSet.getTimestamp("update_date").toLocalDateTime());
             } catch (NullPointerException e) {
@@ -140,6 +146,20 @@ public class SolutionDao {
                 e.printStackTrace();
                 return new SolutionEntity[0];
             }
+        }
+
+        public int countByUserId (int userId) {
+//            try (Connection connection = DbUtilOld.getConnection()) {
+//                PreparedStatement statement = connection.prepareStatement(COUNT_SOLUTIONS_BY_USERID);
+//                statement.setInt(1, userId);
+//                ResultSet resultSet = statement.executeQuery();
+//                return (int) resultSet.getInt(1);
+//            } catch (SQLException e) {
+//                e.printStackTrace();
+//                return -1;
+//            }
+            SolutionEntity[] entities = findAllByUserId(userId);
+            return entities.length;
         }
 
         public SolutionEntity[] findAllByExerciseId(int exerciseId) {

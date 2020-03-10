@@ -1,11 +1,13 @@
 package pl.coderslab.users;
 
+import pl.coderslab.solution.SolutionDao;
 import pl.coderslab.userGroup.UserGroupDao;
 import pl.coderslab.userGroup.UserGroupMapper;
 
 public class UserMapper {
 
     private final static UserGroupDao USER_GROUP_DAO = new UserGroupDao();
+    private final static SolutionDao SOLUTION_DAO = new SolutionDao();
 
     public static User mapDtoToUser (UserDto dto) {
         User user = new User();
@@ -17,6 +19,7 @@ public class UserMapper {
                 UserGroupMapper.mapEntityToUserGroup(
                         USER_GROUP_DAO.read(
                                 dto.getUserGroupId())));
+        user.setSolutions(dto.getSolutions());
         return user;
     }
 
@@ -27,6 +30,7 @@ public class UserMapper {
         dto.setEmail(user.getEmail());
         dto.setPassword(user.getPassword());
         dto.setUserGroupId(user.getUserGroup().getId());
+        dto.setSolutions(user.getSolutions());
         return dto;
     }
 
@@ -40,6 +44,7 @@ public class UserMapper {
                 UserGroupMapper.mapEntityToUserGroup(
                         USER_GROUP_DAO.read(
                                 entity.getUserGroupId())));
+        user.setSolutions(SOLUTION_DAO.countByUserId(user.getId()));
     return user;
     }
 

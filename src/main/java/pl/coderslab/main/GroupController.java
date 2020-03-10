@@ -1,6 +1,7 @@
 package pl.coderslab.main;
 
 import pl.coderslab.userGroup.UserGroupDto;
+import pl.coderslab.users.UserDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,14 +17,17 @@ public class GroupController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String paramAsString = request.getParameter("id");
         UserGroupDto dto = new UserGroupDto();
+        UserDto[] userDtos = new UserDto[0];
         try {
             int id = Integer.parseInt(paramAsString);
             dto = GroupService.findGroupById(id);
+            userDtos = UsersService.findUsersByGroupId(id);
         } catch (NumberFormatException e) {
             System.out.println("invalid id");
         }
         request.setAttribute("group", dto);
-        getServletContext().getRequestDispatcher("/WEB-INF/jsp/groups.jsp").forward(request, response);
+        request.setAttribute("users", userDtos);
+        getServletContext().getRequestDispatcher("/WEB-INF/jsp/group.jsp").forward(request, response);
 
     }
 }
