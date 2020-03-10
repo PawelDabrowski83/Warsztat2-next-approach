@@ -15,10 +15,10 @@
 <jsp:include page="header.jsp"/>
 <p>manage:</p>
     <ul>
-        <li>exercises</li>
-        <li>solutions</li>
+        <li><a href="${pageContext.request.contextPath}/manageExercises">exercises</a></li>
+        <li><a href="${pageContext.request.contextPath}/manageSolutions">solutions</a></li>
         <li><a href="${pageContext.request.contextPath}/manageUsers">users</a></li>
-        <li>usergroups</li>
+        <li><a href="${pageContext.request.contextPath}/manageUserGroups">usergroups</a></li>
     </ul>
 
 </body>
