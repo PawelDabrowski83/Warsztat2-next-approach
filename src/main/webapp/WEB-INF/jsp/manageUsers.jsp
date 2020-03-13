@@ -14,6 +14,7 @@
 <body>
 <jsp:include page="header.jsp"/>
 
+<p><a href="${pageContext.request.contextPath}/manageFormUsers">Add new User</a></p>
 <table>
     <caption>Manage users</caption>
     <tr>

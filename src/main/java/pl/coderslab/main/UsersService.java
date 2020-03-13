@@ -5,6 +5,7 @@ import pl.coderslab.users.UserDto;
 import pl.coderslab.users.UserEntity;
 import pl.coderslab.users.UserMapper;
 
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
 
@@ -34,5 +35,11 @@ public class UsersService {
                 .sorted()
                 .map(UserMapper::mapUserToDto)
                 .toArray(UserDto[]::new);
+    }
+
+    public static boolean createUser(UserDto dto) {
+            UserEntity entity = UserMapper.mapUserToEntity(UserMapper.mapDtoToUser(dto));
+            entity = USER_DAO.create(entity);
+        return entity.getId() > 0;
     }
 }

@@ -2,6 +2,8 @@ package pl.coderslab.users;
 
 import pl.coderslab.commons.BCrypt;
 
+import java.util.Objects;
+
 public class UserEntity {
 
     private int id;
@@ -72,5 +74,21 @@ public class UserEntity {
                 ", password='" + password + '\'' +
                 ", userGroupId=" + userGroupId +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserEntity)) return false;
+        UserEntity entity = (UserEntity) o;
+        return getUserGroupId() == entity.getUserGroupId() &&
+                getName().equals(entity.getName()) &&
+                getEmail().equals(entity.getEmail()) &&
+                getPassword().equals(entity.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getName(), getEmail(), getPassword(), getUserGroupId());
     }
 }
