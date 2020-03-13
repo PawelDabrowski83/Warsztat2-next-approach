@@ -14,7 +14,7 @@
 <body>
 <jsp:include page="header.jsp"/>
 
-<p><a href="${pageContext.request.contextPath}/manageFormUsers">Add new User</a></p>
+<p><a href="${pageContext.request.contextPath}/manageFormUsers?action=new">Add new User</a></p>
 <table>
     <caption>Manage users</caption>
     <tr>
@@ -32,7 +32,7 @@
             <td>${user.email}</td>
             <td>${user.solutions}</td>
             <td>${user.userGroupId}</td>
-            <td>Edit - Delete</td>
+            <td><a href="${pageContext.request.contextPath}/manageFormUsers?id=${user.id}&action=edit">Edit</a> - <a href="${pageContext.request.contextPath}/manageFormUsers?id=${user.id}&action=delete">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
