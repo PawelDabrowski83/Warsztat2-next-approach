@@ -1,7 +1,7 @@
-package pl.coderslab.main;
+package pl.coderslab.users;
 
+import pl.coderslab.solution.SolutionService;
 import pl.coderslab.solution.SolutionDto;
-import pl.coderslab.users.UserDto;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +21,7 @@ public class UserController extends HttpServlet {
 
         try {
             int paramInt = Integer.parseInt(param);
-            dto = UsersService.findUserById(paramInt);
+            dto = UserService.findUserById(paramInt);
             solutionDtos = SolutionService.findSolutionsByUserId(paramInt);
         } catch (NumberFormatException e) {
             System.out.println("invalid id");

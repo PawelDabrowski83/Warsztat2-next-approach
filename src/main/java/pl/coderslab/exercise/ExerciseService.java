@@ -1,4 +1,4 @@
-package pl.coderslab.main;
+package pl.coderslab.exercise;
 
 import pl.coderslab.exercise.ExerciseDao;
 import pl.coderslab.exercise.ExerciseDto;

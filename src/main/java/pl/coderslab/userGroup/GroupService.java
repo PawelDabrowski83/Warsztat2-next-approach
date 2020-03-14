@@ -1,4 +1,4 @@
-package pl.coderslab.main;
+package pl.coderslab.userGroup;
 
 import pl.coderslab.userGroup.*;
 

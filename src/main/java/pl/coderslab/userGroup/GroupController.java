@@ -1,7 +1,7 @@
-package pl.coderslab.main;
+package pl.coderslab.userGroup;
 
-import pl.coderslab.userGroup.UserGroupDto;
 import pl.coderslab.users.UserDto;
+import pl.coderslab.users.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +21,7 @@ public class GroupController extends HttpServlet {
         try {
             int id = Integer.parseInt(paramAsString);
             dto = GroupService.findGroupById(id);
-            userDtos = UsersService.findUsersByGroupId(id);
+            userDtos = UserService.findUsersByGroupId(id);
         } catch (NumberFormatException e) {
             System.out.println("invalid id");
         }

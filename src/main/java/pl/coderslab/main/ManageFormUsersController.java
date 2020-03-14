@@ -1,6 +1,7 @@
 package pl.coderslab.main;
 
 import pl.coderslab.users.UserDto;
+import pl.coderslab.users.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +29,7 @@ public class ManageFormUsersController extends HttpServlet {
                 break;
             case "delete":
                 dto = getUserById(userIdAsString);
-                UsersService.deleteUser(dto);
+                UserService.deleteUser(dto);
                 response.sendRedirect("/manageUsers");
                 return;
             default:
@@ -53,9 +54,9 @@ public class ManageFormUsersController extends HttpServlet {
         if ("edit".equals(param)) {
             int id = Integer.parseInt(request.getParameter("id"));
             dto.setId(id);
-            UsersService.editUser(dto);
+            UserService.editUser(dto);
         } else {
-            UsersService.createUser(dto);
+            UserService.createUser(dto);
         }
         response.sendRedirect("/manageUsers");
     }
@@ -63,7 +64,7 @@ public class ManageFormUsersController extends HttpServlet {
     private UserDto getUserById (String userIdAsString) {
         try {
             int userId = Integer.parseInt(userIdAsString);
-            return UsersService.findUserById(userId);
+            return UserService.findUserById(userId);
         } catch (NumberFormatException e) {
             e.printStackTrace();
             System.out.println("pushUserById fail with id: " + userIdAsString);

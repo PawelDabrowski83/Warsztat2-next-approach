@@ -1,6 +1,4 @@
-package pl.coderslab.main;
-
-import pl.coderslab.solution.SolutionDto;
+package pl.coderslab.solution;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

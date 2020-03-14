@@ -1,7 +1,7 @@
 package pl.coderslab.main;
 
-import pl.coderslab.exercise.ExerciseDto;
 import pl.coderslab.solution.SolutionDto;
+import pl.coderslab.solution.SolutionService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

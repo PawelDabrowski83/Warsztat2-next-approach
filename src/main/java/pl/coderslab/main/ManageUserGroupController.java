@@ -1,7 +1,7 @@
 package pl.coderslab.main;
 
 import pl.coderslab.userGroup.UserGroupDto;
-import pl.coderslab.users.UserDto;
+import pl.coderslab.userGroup.UserGroupService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

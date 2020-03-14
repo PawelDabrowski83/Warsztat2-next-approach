@@ -1,4 +1,4 @@
-package pl.coderslab.main;
+package pl.coderslab.solution;
 
 import pl.coderslab.solution.SolutionDao;
 import pl.coderslab.solution.SolutionDto;
@@ -31,5 +31,10 @@ public class SolutionService {
                 .map(SolutionMapper::mapEntityToSolution)
                 .map(SolutionMapper::mapSolutionToDto)
                 .toArray(SolutionDto[]::new);
+    }
+
+    public static SolutionDto[] getRecentSolutions(int limit) {
+        SolutionEntity[] entities = SOLUTION_DAO.findRecentSolution(limit);
+        return SolutionMapper.mapSolutionToDtoArray(SolutionMapper.mapEntityToSolutionArray(entities));
     }
 }

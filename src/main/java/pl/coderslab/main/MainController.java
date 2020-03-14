@@ -1,6 +1,7 @@
 package pl.coderslab.main;
 
 import pl.coderslab.solution.SolutionDto;
+import pl.coderslab.solution.SolutionService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,7 @@ public class MainController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        SolutionDto[] dtos = MainService.getRecentSolutions(3);
+        SolutionDto[] dtos = SolutionService.getRecentSolutions(3);
         request.setAttribute("recentSolutions", dtos);
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
 

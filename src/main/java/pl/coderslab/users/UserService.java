@@ -1,4 +1,4 @@
-package pl.coderslab.main;
+package pl.coderslab.users;
 
 import pl.coderslab.users.UserDao;
 import pl.coderslab.users.UserDto;
@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Optional;
 
-public class UsersService {
+public class UserService {
 
     private final static UserDao USER_DAO = new UserDao();
 

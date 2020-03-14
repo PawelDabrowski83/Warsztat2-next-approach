@@ -1,6 +1,7 @@
 package pl.coderslab.main;
 
 import pl.coderslab.users.UserDto;
+import pl.coderslab.users.UserService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,7 +15,7 @@ public class ManageUsersController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        UserDto[] dtos = UsersService.findAll();
+        UserDto[] dtos = UserService.findAll();
         request.setAttribute("users", dtos);
         getServletContext().getRequestDispatcher("/WEB-INF/jsp/manageUsers.jsp").forward(request, response);
 

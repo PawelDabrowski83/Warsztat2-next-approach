@@ -3,11 +3,7 @@ package pl.coderslab;
 import pl.coderslab.exercise.ExerciseEntity;
 import pl.coderslab.exercise.ExerciseDao;
 import pl.coderslab.exercise.ExerciseServiceConsole;
-import pl.coderslab.main.MainService;
-import pl.coderslab.solution.SolutionDto;
-import pl.coderslab.solution.SolutionEntity;
-import pl.coderslab.solution.SolutionAssignmentConsole;
-import pl.coderslab.solution.SolutionDao;
+import pl.coderslab.solution.*;
 import pl.coderslab.userGroup.UserGroupEntity;
 import pl.coderslab.userGroup.UserGroupDao;
 import pl.coderslab.userGroup.UserGroupServiceConsole;
@@ -34,7 +30,7 @@ public class Main {
 
 //        testUserGroupsConnection();
 //        testUsers();
-        SolutionDto[] dtos = MainService.getRecentSolutions(3);
+        SolutionDto[] dtos = SolutionService.getRecentSolutions(3);
         System.out.println("nothing");
     }
 
