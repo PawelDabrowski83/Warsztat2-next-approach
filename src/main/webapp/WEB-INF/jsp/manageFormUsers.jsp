@@ -6,6 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
     <title>Manage User Form</title>
@@ -13,9 +14,10 @@
 <body>
 <jsp:include page="header.jsp"/>
 
-<form action="${pageContext.request.contextPath}/manageFormUsers" method="post">
-    Name: <input type="text" name="name"/><br/>
-    Email: <input type="text" name="email"/><br/>
+<form action="${pageContext.request.contextPath}/manageFormUsers?action=${action}" method="post">
+    <input type="hidden" name="id" value="${user.id}"/>
+    Name: <input type="text" name="name" value="${user.name}"/><br/>
+    Email: <input type="text" name="email" value="${user.email}"/><br/>
     Password: <input type="password" name="password"/><br/>
     <input type="submit" value="Save"/>
 </form>

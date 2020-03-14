@@ -42,4 +42,13 @@ public class UsersService {
             entity = USER_DAO.create(entity);
         return entity.getId() > 0;
     }
+
+    public static void deleteUser(UserDto dto) {
+        USER_DAO.delete(dto.getId());
+    }
+
+    public static void editUser(UserDto dto) {
+        UserEntity entity = UserMapper.mapUserToEntity(UserMapper.mapDtoToUser(dto));
+        USER_DAO.update(entity);
+    }
 }
