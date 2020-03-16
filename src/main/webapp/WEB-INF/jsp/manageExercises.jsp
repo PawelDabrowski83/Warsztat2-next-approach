@@ -14,6 +14,8 @@
 <body>
 <jsp:include page="header.jsp"/>
 
+<p><a href="${pageContext.request.contextPath}/manageFormExercises?action=new">Add new Exercise</a></p>
+
 <table>
     <caption>Manage Exercises</caption>
     <tr>
@@ -27,7 +29,7 @@
             <td>${exercise.id}</td>
             <td>${exercise.title}</td>
             <td>${exercise.description}</td>
-            <td>Edit - Delete</td>
+            <td><a href="${pageContext.request.contextPath}/manageFormExercises?action=edit&id=${exercise.id}">Edit</a> - <a href="${pageContext.request.contextPath}/manageFormExercises?action=delete&id=${exercise.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>

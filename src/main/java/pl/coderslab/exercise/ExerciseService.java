@@ -18,4 +18,29 @@ public class ExerciseService {
                 .map(ExerciseMapper::mapExerciseToDto)
                 .toArray(ExerciseDto[]::new);
     }
+
+    public static void createExercise (ExerciseDto dto) {
+        EXERCISE_DAO.create(
+                ExerciseMapper.mapExerciseToEntity(
+                        ExerciseMapper.mapDtoToExercise(
+                                dto)));
+    }
+
+    public static ExerciseDto readExercise (int exerciseId) {
+        return ExerciseMapper.mapExerciseToDto(
+                ExerciseMapper.mapEntityToExercise(
+                        EXERCISE_DAO.read(
+                                exerciseId)));
+    }
+
+    public static void editExercise (ExerciseDto dto) {
+        EXERCISE_DAO.update(
+                ExerciseMapper.mapExerciseToEntity(
+                        ExerciseMapper.mapDtoToExercise(
+                                dto)));
+    }
+
+    public static void deleteExercise (int exerciseId) {
+        EXERCISE_DAO.delete(exerciseId);
+    }
 }
