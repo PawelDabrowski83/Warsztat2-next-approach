@@ -37,4 +37,29 @@ public class SolutionService {
         SolutionEntity[] entities = SOLUTION_DAO.findRecentSolution(limit);
         return SolutionMapper.mapSolutionToDtoArray(SolutionMapper.mapEntityToSolutionArray(entities));
     }
+
+    public static void createSolution (SolutionDto dto) {
+        SOLUTION_DAO.create(
+                SolutionMapper.mapSolutionToEntity(
+                        SolutionMapper.mapDtoToSolution(
+                                dto)));
+    }
+
+    public static SolutionDto findSolution (int solutionId) {
+        return SolutionMapper.mapSolutionToDto(
+                SolutionMapper.mapEntityToSolution(
+                        SOLUTION_DAO.read(
+                                solutionId)));
+    }
+
+    public static void editSolution (SolutionDto dto) {
+        SOLUTION_DAO.update(
+                SolutionMapper.mapSolutionToEntity(
+                        SolutionMapper.mapDtoToSolution(
+                                dto)));
+    }
+
+    public static void deleteSolution (int solutionId) {
+        SOLUTION_DAO.delete(solutionId);
+    }
 }

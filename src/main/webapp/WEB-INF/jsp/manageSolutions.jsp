@@ -33,7 +33,7 @@
             <td>${solution.description}</td>
             <td>${solution.usersId}</td>
             <td>${solution.exerciseId}</td>
-            <td>Edit - Delete</td>
+            <td><a href="${pageContext.request.contextPath}/manageFormSolutions?action=edit&id=${solution.id}">Edit</a> - <a href="${pageContext.request.contextPath}/manageFormSolutions?action=delete&id=${solution.id}">Delete</a></td>
         </tr>
     </c:forEach>
 </table>
