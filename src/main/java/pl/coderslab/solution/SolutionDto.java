@@ -10,6 +10,8 @@ public class SolutionDto {
     private String description;
     private int exerciseId;
     private int usersId;
+    private String exerciseTitle;
+    private String userName;
 
     public int getId() {
         return id;
@@ -57,5 +59,21 @@ public class SolutionDto {
 
     public void setUsersId(int usersId) {
         this.usersId = usersId;
+    }
+
+    public String getExerciseTitle() {
+        return exerciseTitle;
+    }
+
+    public void setExerciseTitle(String exerciseTitle) {
+        this.exerciseTitle = exerciseTitle;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

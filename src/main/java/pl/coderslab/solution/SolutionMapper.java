@@ -39,6 +39,8 @@ public class SolutionMapper {
         dto.setDescription(solution.getDescription());
         dto.setUsersId(solution.getUser().getId());
         dto.setExerciseId(solution.getExercise().getId());
+        dto.setExerciseTitle(solution.getExercise().getTitle());
+        dto.setUserName(solution.getUser().getName());
         return dto;
     }
 
