@@ -33,7 +33,7 @@ public class ExerciseDao {
             return exerciseEntity;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new ExerciseEntity();
         }
     }
 
@@ -53,7 +53,7 @@ public class ExerciseDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return new ExerciseEntity();
     }
 
     public void update(ExerciseEntity exerciseEntity) {
@@ -99,7 +99,7 @@ public class ExerciseDao {
             return exerciseEntities;
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
+            return new ExerciseEntity[0];
         }
     }
 }

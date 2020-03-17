@@ -63,7 +63,7 @@ public class UserDao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return null;
+        return new UserEntity();
     }
 
     public void update(UserEntity userEntity) {
@@ -105,7 +105,8 @@ public class UserDao {
             }
             return userEntities;
         } catch (SQLException e) {
-            e.printStackTrace(); return null;
+            e.printStackTrace();
+            return new UserEntity[0];
         }
     }
 

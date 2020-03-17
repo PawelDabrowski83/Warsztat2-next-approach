@@ -14,6 +14,8 @@
 <body>
 <jsp:include page="header.jsp"/>
 
+<p><a href="${pageContext.request.contextPath}/manageFormSolutions?action=new">Add new Solution</a></p>
+
 <table>
     <caption>Manage Solutions</caption>
     <tr>
